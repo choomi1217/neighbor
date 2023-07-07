@@ -2,6 +2,7 @@ package who.is.neighbor.citizen.infrastructure.jpa;
 
 import jakarta.persistence.*;
 import who.is.neighbor.account.infrastructure.jpa.AccountEntity;
+import who.is.neighbor.address.infrastructure.jpa.AddressEntity;
 import who.is.neighbor.citizen.domain.Citizen;
 
 import java.time.LocalDate;
@@ -17,9 +18,12 @@ public class CitizenEntity {
 
     private LocalDate createdAt;
 
-    @ManyToOne
-    @JoinColumn(name="account_id", nullable=false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="account_id")
     private AccountEntity accountEntity;
+
+    @OneToOne(mappedBy = "citizenEntity", cascade = CascadeType.ALL)
+    private AddressEntity addressEntity;
 
     public CitizenEntity(Citizen user) {
         this.nickname = user.nickname();

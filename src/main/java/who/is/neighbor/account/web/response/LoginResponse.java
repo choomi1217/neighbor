@@ -4,6 +4,6 @@ import who.is.neighbor.citizen.domain.Citizen;
 
 import java.util.List;
 
-public record LoginResponse(String email, String phoneNumber, List<Citizen> userList){
+public record LoginResponse(String email, List<Citizen> userList){
 
 }
