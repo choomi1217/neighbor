@@ -1,4 +1,7 @@
 package who.is.neighbor.account.web.response;
 
-public record AccountResponse(String email, String phoneNumber, boolean isEmailVerified, boolean isActive){
+import who.is.neighbor.account.domain.AccountActiveStatus;
+import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
+
+public record AccountResponse(String email, AccountEmailVerificationStatus isEmailVerified, AccountActiveStatus isActive){
 }
