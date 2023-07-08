@@ -47,4 +47,8 @@ public class AccountEntity {
     public void update(AccountUpdateRequest updateRequest) {
         this.email = updateRequest.email();
     }
+
+    public void delete() {
+        this.activeStatus = AccountActiveStatus.DELETED;
+    }
 }

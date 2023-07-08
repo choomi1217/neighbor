@@ -17,13 +17,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountUserService {
 
-    private final AccountRepository accountRepository;
+    //private final AccountRepository accountRepository;
+    private final AccountService accountService;
     private final CitizenService citizenService;
     private PasswordEncoder passwordEncoder;
 
     public LoginResponse login(LoginRequest loginRequest) {
 
-        Account account = accountRepository.findByEmail(loginRequest.email());
+        Account account = accountService.findByEmail(loginRequest.email());
         List<Citizen> userList = null;
 
         if(!passwordEncoder.matches(loginRequest.password(), account.password())){
@@ -38,7 +39,7 @@ public class AccountUserService {
     }
 
     public void delete(String email) {
-        accountRepository.delete(email);
-        citizenService.delete(email);
+        Account deletedAccount = accountService.delete(email);
+        Citizen deletedCitizen = citizenService.delete(deletedAccount.accountId());
     }
 }

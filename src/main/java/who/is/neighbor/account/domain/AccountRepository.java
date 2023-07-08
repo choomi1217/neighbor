@@ -8,4 +8,6 @@ public interface AccountRepository {
     Account findByEmail(String email);
 
     Account update(String email, AccountUpdateRequest updateRequest);
+
+    Account delete(String email);
 }

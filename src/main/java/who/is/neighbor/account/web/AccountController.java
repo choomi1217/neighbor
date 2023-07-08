@@ -38,8 +38,11 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<Void> deleteAccount() {
-        //todo : 계정 삭제 처리
+    @DeleteMapping("/accounts")
+    public ResponseEntity<Void> deleteAccount(
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        accountUserService.delete(userDetails.getUsername());
         return ResponseEntity.ok().build();
     }
 

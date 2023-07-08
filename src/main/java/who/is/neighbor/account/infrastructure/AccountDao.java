@@ -34,4 +34,11 @@ public class AccountDao implements AccountRepository {
                     return accountEntity;
                 }).orElseThrow(() -> new RuntimeException("계정이 존재하지 않습니다.")).toDomain();
     }
+
+    @Override
+    public Account delete(String email) {
+        AccountEntity accountEntity = accountJpaRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("계정이 존재하지 않습니다."));
+        accountEntity.delete();
+        return accountEntity.toDomain();
+    }
 }

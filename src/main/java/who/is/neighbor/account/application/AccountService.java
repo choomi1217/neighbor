@@ -38,4 +38,11 @@ public class AccountService {
     }
 
 
+    public Account findByEmail(String email) {
+        return accountRepository.findByEmail(email);
+    }
+
+    public Account delete(String email) {
+        return accountRepository.delete(email);
+    }
 }
