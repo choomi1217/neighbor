@@ -13,17 +13,30 @@ import java.util.stream.Collectors;
 @Repository
 @RequiredArgsConstructor
 public class CitizenDao implements CitizenRepository {
-    private final CitizenJpaRepository userJpaRepository;
+    private final CitizenJpaRepository citizenJpaRepository;
 
     @Override
     public Citizen save(Citizen user) {
-        CitizenEntity citizenEntity = userJpaRepository.save(new CitizenEntity(user));
+        CitizenEntity citizenEntity = citizenJpaRepository.save(new CitizenEntity(user));
         return citizenEntity.toDomain();
     }
 
     @Override
     public List<Citizen> findByCitizenId(Long citizenId) {
-        List<CitizenEntity> citizenEntityList = userJpaRepository.findByCitizenId(citizenId);
+        List<CitizenEntity> citizenEntityList = citizenJpaRepository.findByCitizenId(citizenId);
         return citizenEntityList.stream().map(CitizenEntity::toDomain).collect(Collectors.toList());
+    }
+
+    @Override
+    public Citizen findByAccountId(Long accountId) {
+        CitizenEntity citizenEntity = citizenJpaRepository.findByAccountId(accountId).orElseThrow(() -> new RuntimeException("유저가 존재하지 않습니다."));
+        return citizenEntity.toDomain();
+    }
+
+    @Override
+    public Citizen delete(Long accountId) {
+        CitizenEntity citizenEntity = citizenJpaRepository.findByAccountId(accountId).orElseThrow(() -> new RuntimeException("유저가 존재하지 않습니다."));
+        citizenEntity.delete();
+        return citizenEntity.toDomain();
     }
 }

@@ -18,4 +18,8 @@ public class CitizenService {
     public List<Citizen> findUserByAccountId(Long citizenId) {
         return citizenRepository.findByCitizenId(citizenId);
     }
+
+    public Citizen delete(Long accountId) {
+        return citizenRepository.delete(accountId);
+    }
 }
