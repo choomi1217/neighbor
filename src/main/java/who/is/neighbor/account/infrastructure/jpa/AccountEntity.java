@@ -24,6 +24,8 @@ public class AccountEntity {
     @OneToMany(mappedBy = "accountEntity")
     private List<CitizenEntity> citizens = new ArrayList<>();
 
+    private String emailVerificationToken;
+
     public AccountEntity() {}
 
     public AccountEntity(String email, String password, AccountEmailVerificationStatus emailVerificationStatus, AccountActiveStatus activeStatus) {
@@ -38,10 +40,11 @@ public class AccountEntity {
         this.password = account.password();
         this.emailVerificationStatus = account.emailVerificationStatus();
         this.activeStatus = account.activeStatus();
+        emailVerificationToken = account.emailVerificationToken();
     }
 
     public Account toDomain() {
-        return new Account(this.accountId ,email, password, emailVerificationStatus, activeStatus);
+        return new Account(this.accountId ,this.email, this.password, this.emailVerificationToken, this.emailVerificationStatus, this.activeStatus);
     }
 
     public void update(AccountUpdateRequest updateRequest) {

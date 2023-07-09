@@ -1,13 +1,19 @@
 package who.is.neighbor.account.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import java.util.UUID;
 
-import java.time.LocalDate;
-
-public record Account (Long accountId, String email, String password, AccountEmailVerificationStatus emailVerificationStatus, AccountActiveStatus activeStatus) {
+public record Account (Long accountId, String email, String password, String emailVerificationToken , AccountEmailVerificationStatus emailVerificationStatus, AccountActiveStatus activeStatus) {
 
     public Account(String email, String password) {
-        this(null, email, password, AccountEmailVerificationStatus.NON_VERIFIED, AccountActiveStatus.ACTIVE);
+        this(null,
+                email,
+                password,
+                generateEmailVerificationToken(),
+                AccountEmailVerificationStatus.NON_VERIFIED, AccountActiveStatus.ACTIVE);
     }
+
+    private static String generateEmailVerificationToken() {
+        return UUID.randomUUID().toString();
+    }
+
 }

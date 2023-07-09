@@ -35,7 +35,7 @@ public class AccountUserService {
             userList = citizenService.findUserByAccountId(account.accountId());
         }
 
-        return new LoginResponse( account.email(), userList );
+        return new LoginResponse( account.email(), userList, account.emailVerificationStatus());
     }
 
     public void delete(String email) {
