@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import who.is.neighbor.account.domain.Account;
+import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
 import who.is.neighbor.account.domain.AccountRepository;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.account.web.request.SignUpRequest;
@@ -44,5 +45,9 @@ public class AccountService {
 
     public Account delete(String email) {
         return accountRepository.delete(email);
+    }
+
+    public AccountEmailVerificationStatus emailVerification() {
+        return AccountEmailVerificationStatus.VERIFIED;
     }
 }

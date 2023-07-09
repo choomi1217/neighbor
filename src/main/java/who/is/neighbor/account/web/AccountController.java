@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import who.is.neighbor.account.application.AccountService;
 import who.is.neighbor.account.application.AccountUserService;
+import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.account.web.request.LoginRequest;
 import who.is.neighbor.account.web.request.SignUpRequest;
@@ -57,13 +58,14 @@ public class AccountController {
     }
 
     @PostMapping("/accounts/logout")
-    public ResponseEntity<Void> logout() throws URISyntaxException {
+    public ResponseEntity<Void> logout() {
         //todo : 로그아웃 처리
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<AccountResponse> emailVerification() {
-        //todo : 이메일 인증 처리
+    @RequestMapping("/accounts/{email}/email-verification")
+    public ResponseEntity<AccountEmailVerificationStatus> emailVerification() {
+        AccountEmailVerificationStatus emailVerificationStatus = accountService.emailVerification();
         return ResponseEntity.ok().build();
     }
 
