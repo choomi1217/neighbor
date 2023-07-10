@@ -40,9 +40,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/accounts")
-    public ResponseEntity<Void> deleteAccount(
-            @AuthenticationPrincipal UserDetails userDetails
-    ) {
+    public ResponseEntity<Void> deleteAccount( @AuthenticationPrincipal UserDetails userDetails) {
         accountUserService.delete(userDetails.getUsername());
         return ResponseEntity.ok().build();
     }
@@ -64,7 +62,7 @@ public class AccountController {
     }
 
     @RequestMapping("/accounts/{email}/email-verification")
-    public ResponseEntity<AccountEmailVerificationStatus> emailVerification() {
+    public ResponseEntity<AccountEmailVerificationStatus> emailVerification(@PathVariable String email) {
         AccountEmailVerificationStatus emailVerificationStatus = accountService.emailVerification();
         return ResponseEntity.ok().build();
     }

@@ -48,6 +48,7 @@ public class AccountService {
     }
 
     public AccountEmailVerificationStatus emailVerification() {
+
         return AccountEmailVerificationStatus.VERIFIED;
     }
 }

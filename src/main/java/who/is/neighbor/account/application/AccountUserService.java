@@ -28,7 +28,6 @@ public class AccountUserService {
         List<Citizen> userList = null;
 
         if(!passwordEncoder.matches(loginRequest.password(), account.password())){
-            // todo: 비밀번호 불일치 예외 처리
             throw new IllegalArgumentException("Password is not matched");
         }
         if(AccountEmailVerificationStatus.VERIFIED.toString().equals(account.emailVerificationStatus())){
