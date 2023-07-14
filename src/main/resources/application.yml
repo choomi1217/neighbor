@@ -1,0 +1,30 @@
+
+spring:
+# database
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+
+# email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: whdudal1217@gmail.com
+    password: 1234
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          timeout: 5000
+
+# app
+app:
+  host: http://localhost:8080
