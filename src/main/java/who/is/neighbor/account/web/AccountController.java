@@ -8,13 +8,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import who.is.neighbor.account.application.AccountService;
 import who.is.neighbor.account.application.AccountUserService;
-import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.account.web.request.LoginRequest;
 import who.is.neighbor.account.web.request.SignUpRequest;
 import who.is.neighbor.account.web.response.AccountResponse;
 import who.is.neighbor.account.web.response.LoginResponse;
 import who.is.neighbor.account.web.response.SignUpResponse;
+import who.is.neighbor.mail.EmailSendStatus;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -62,9 +62,9 @@ public class AccountController {
     }
 
     @RequestMapping("/accounts/{email}/email-verification")
-    public ResponseEntity<AccountEmailVerificationStatus> emailVerification(@PathVariable String email) {
-        AccountEmailVerificationStatus emailVerificationStatus = accountService.emailVerification();
-        return ResponseEntity.ok().build();
+    public ResponseEntity<EmailSendStatus> emailVerification(@PathVariable String email) {
+        EmailSendStatus status = accountService.emailVerification(email);
+        return ResponseEntity.ok(status);
     }
 
     public ResponseEntity<Void> passwordVerification() {
