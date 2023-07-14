@@ -41,4 +41,13 @@ public class AccountDao implements AccountRepository {
         accountEntity.delete();
         return accountEntity.toDomain();
     }
+
+    @Override
+    public void update(Account account) {
+        accountJpaRepository.findByEmail(account.email()).ifPresent(accountEntity -> {
+            accountEntity.update(account);
+            accountJpaRepository.save(accountEntity);
+            accountEntity.toDomain();
+        });
+    }
 }

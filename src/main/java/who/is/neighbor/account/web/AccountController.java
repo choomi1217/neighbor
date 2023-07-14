@@ -36,7 +36,7 @@ public class AccountController {
             @AuthenticationPrincipal UserDetails userDetails,
             @Validated @RequestBody AccountUpdateRequest updateRequest) throws URISyntaxException {
         AccountResponse accountResponse = accountService.update(userDetails.getUsername(), updateRequest);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(accountResponse);
     }
 
     @DeleteMapping("/accounts")
@@ -61,12 +61,19 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-    @RequestMapping("/accounts/{email}/email-verification")
-    public ResponseEntity<EmailSendStatus> emailVerification(@PathVariable String email) {
-        EmailSendStatus status = accountService.emailVerification(email);
+    @GetMapping("/accounts/{email}/email-verification")
+    public ResponseEntity<EmailSendStatus> sendEmailVerification(@PathVariable String email) {
+        EmailSendStatus status = accountService.sendEmailVerification(email);
         return ResponseEntity.ok(status);
     }
 
+    @GetMapping("/accounts/email-verification")
+    public ResponseEntity<AccountResponse> emailVerification(String token, String email) {
+        AccountResponse accountResponse = accountService.emailVerification(token, email);
+        return ResponseEntity.ok(accountResponse);
+    }
+
+    @PostMapping("/accounts/password-verification")
     public ResponseEntity<Void> passwordVerification() {
         //todo : 비밀번호 인증 처리
         return ResponseEntity.ok().build();

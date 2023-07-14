@@ -10,4 +10,6 @@ public interface AccountRepository {
     Account update(String email, AccountUpdateRequest updateRequest);
 
     Account delete(String email);
+
+    void update(Account verified);
 }

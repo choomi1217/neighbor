@@ -16,4 +16,8 @@ public record Account (Long accountId, String email, String password, String ema
         return UUID.randomUUID().toString();
     }
 
+    public Account verifyEmail() {
+        return new Account(accountId, email, password, emailVerificationToken, AccountEmailVerificationStatus.VERIFIED, activeStatus);
+    }
+
 }

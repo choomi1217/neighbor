@@ -51,6 +51,14 @@ public class AccountEntity {
         this.email = updateRequest.email();
     }
 
+    public void update(Account account) {
+        this.email = account.email();
+        this.password = account.password();
+        this.emailVerificationStatus = account.emailVerificationStatus();
+        this.activeStatus = account.activeStatus();
+        emailVerificationToken = account.emailVerificationToken();
+    }
+
     public void delete() {
         this.activeStatus = AccountActiveStatus.DELETED;
     }

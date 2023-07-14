@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import who.is.neighbor.account.domain.Account;
+import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
 import who.is.neighbor.account.domain.AccountRepository;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.account.web.request.SignUpRequest;
 import who.is.neighbor.account.web.response.AccountResponse;
 import who.is.neighbor.account.web.response.SignUpResponse;
-import who.is.neighbor.citizen.application.CitizenService;
 import who.is.neighbor.mail.EmailMessage;
 import who.is.neighbor.mail.EmailSendStatus;
 import who.is.neighbor.mail.EmailService;
@@ -20,7 +20,6 @@ import who.is.neighbor.mail.EmailService;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final CitizenService citizenService;
     private PasswordEncoder passwordEncoder;
     private EmailService emailService;
 
@@ -51,7 +50,7 @@ public class AccountService {
         return accountRepository.delete(email);
     }
 
-    public EmailSendStatus emailVerification(String email) {
+    public EmailSendStatus sendEmailVerification(String email) {
         Account account = accountRepository.findByEmail(email);
 
         String message = EmailMessage.defaultMessage(account.email());
@@ -64,5 +63,19 @@ public class AccountService {
         }
 
         return EmailSendStatus.SENT;
+    }
+
+    public AccountResponse emailVerification(String token, String email) {
+        Account account = accountRepository.findByEmail(email);
+        if (account.emailVerificationStatus()== AccountEmailVerificationStatus.VERIFIED) {
+            throw new IllegalArgumentException("Already Verified");
+        }
+        if(token.equals(account.emailVerificationToken())) {
+            Account verified = account.verifyEmail();
+            accountRepository.update(verified);
+            return new AccountResponse(verified.email(), verified.emailVerificationStatus(), verified.activeStatus());
+        }else{
+            throw new IllegalArgumentException("Invalid Token");
+        }
     }
 }
