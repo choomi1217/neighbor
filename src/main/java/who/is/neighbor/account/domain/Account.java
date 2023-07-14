@@ -17,7 +17,14 @@ public record Account (Long accountId, String email, String password, String ema
     }
 
     public Account verifyEmail() {
-        return new Account(accountId, email, password, emailVerificationToken, AccountEmailVerificationStatus.VERIFIED, activeStatus);
+        return new Account(
+                accountId,
+                email,
+                password,
+                emailVerificationToken,
+                AccountEmailVerificationStatus.VERIFIED,
+                activeStatus
+        );
     }
 
 }
