@@ -1,5 +1,8 @@
 package who.is.neighbor.account.domain;
 
+import who.is.neighbor.account.application.AccountActiveStatus;
+import who.is.neighbor.account.application.AccountEmailVerificationStatus;
+
 import java.util.UUID;
 
 public record Account (Long accountId, String email, String password, String emailVerificationToken , AccountEmailVerificationStatus emailVerificationStatus, AccountActiveStatus activeStatus) {

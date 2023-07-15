@@ -1,4 +1,4 @@
-package who.is.neighbor.account.domain;
+package who.is.neighbor.account.application;
 
 public enum AccountEmailVerificationStatus {
     VERIFIED,

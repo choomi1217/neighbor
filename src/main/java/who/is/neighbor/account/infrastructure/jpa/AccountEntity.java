@@ -2,8 +2,8 @@ package who.is.neighbor.account.infrastructure.jpa;
 
 import jakarta.persistence.*;
 import who.is.neighbor.account.domain.Account;
-import who.is.neighbor.account.domain.AccountActiveStatus;
-import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
+import who.is.neighbor.account.application.AccountActiveStatus;
+import who.is.neighbor.account.application.AccountEmailVerificationStatus;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.citizen.infrastructure.jpa.CitizenEntity;
 
