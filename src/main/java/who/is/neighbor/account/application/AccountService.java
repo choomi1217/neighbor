@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import who.is.neighbor.account.domain.Account;
-import who.is.neighbor.account.domain.AccountEmailVerificationStatus;
 import who.is.neighbor.account.domain.AccountRepository;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.account.web.request.SignUpRequest;
@@ -77,5 +76,13 @@ public class AccountService {
         }else{
             throw new IllegalArgumentException("Invalid Token");
         }
+    }
+
+    public PasswordVerificationStatus passwordVerification(String email, String password) {
+        Account account = accountRepository.findByEmail(email);
+        if(!passwordEncoder.matches(password, account.password())){
+            return PasswordVerificationStatus.NON_VERIFIED;
+        }
+        return PasswordVerificationStatus.VERIFIED;
     }
 }

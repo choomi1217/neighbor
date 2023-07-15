@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import who.is.neighbor.account.application.AccountService;
 import who.is.neighbor.account.application.AccountUserService;
+import who.is.neighbor.account.application.PasswordVerificationStatus;
 import who.is.neighbor.account.web.request.AccountUpdateRequest;
 import who.is.neighbor.account.web.request.LoginRequest;
 import who.is.neighbor.account.web.request.SignUpRequest;
@@ -40,25 +41,14 @@ public class AccountController {
     }
 
     @DeleteMapping("/accounts")
-    public ResponseEntity<Void> deleteAccount( @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<Void> deleteAccount(@AuthenticationPrincipal UserDetails userDetails) {
         accountUserService.delete(userDetails.getUsername());
-        return ResponseEntity.ok().build();
-    }
-
-    public ResponseEntity<AccountResponse> getAccount() {
-        //todo : 계정 조회 처리
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/accounts/login")
     public ResponseEntity<LoginResponse> login(@Validated @RequestBody LoginRequest loginRequest) throws URISyntaxException {
         return ResponseEntity.ok(accountUserService.login(loginRequest));
-    }
-
-    @PostMapping("/accounts/logout")
-    public ResponseEntity<Void> logout() {
-        //todo : 로그아웃 처리
-        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/accounts/{email}/email-verification")
@@ -74,8 +64,8 @@ public class AccountController {
     }
 
     @PostMapping("/accounts/password-verification")
-    public ResponseEntity<Void> passwordVerification() {
-        //todo : 비밀번호 인증 처리
-        return ResponseEntity.ok().build();
+    public ResponseEntity<PasswordVerificationStatus> passwordVerification(@AuthenticationPrincipal UserDetails userDetails,String password) {
+        PasswordVerificationStatus verificationStatus = accountService.passwordVerification(userDetails.getUsername(), password);
+        return ResponseEntity.ok(verificationStatus);
     }
 }
