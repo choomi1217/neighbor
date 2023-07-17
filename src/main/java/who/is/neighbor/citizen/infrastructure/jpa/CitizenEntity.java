@@ -5,8 +5,10 @@ import who.is.neighbor.account.infrastructure.jpa.AccountEntity;
 import who.is.neighbor.account.infrastructure.jpa.CitizenActiveStatus;
 import who.is.neighbor.address.infrastructure.jpa.AddressEntity;
 import who.is.neighbor.citizen.domain.Citizen;
+import who.is.neighbor.hobby.infrastructure.jpa.HobbyEntity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class CitizenEntity {
@@ -25,18 +27,25 @@ public class CitizenEntity {
     @JoinColumn(name="account_id")
     private AccountEntity accountEntity;
 
-    @OneToOne(mappedBy = "citizenEntity", cascade = CascadeType.ALL)
-    private AddressEntity addressEntity;
+    @OneToMany(mappedBy = "addressEntity", cascade = CascadeType.ALL)
+    private List<AddressEntity> addressEntity;
 
-    public CitizenEntity(Citizen user) {
-        this.nickname = user.nickname();
-        this.createdAt = user.createdAt();
+    @OneToOne(mappedBy = "hobbyEntity", cascade = CascadeType.ALL)
+    private HobbyEntity hobbyEntity;
+
+    public CitizenEntity(Citizen citizen) {
+        this.nickname = citizen.nickname();
+        this.createdAt = citizen.createdAt();
+        this.phoneNumber = citizen.phoneNumber();
+        this.activeStatus = CitizenActiveStatus.ACTIVE;
     }
 
     public CitizenEntity() {}
 
     public Citizen toDomain() {
-        return new Citizen( this.nickname, this.createdAt);
+
+        //return new Citizen( this.nickname, this.createdAt);
+        return null;
     }
 
     public void delete() {

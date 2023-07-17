@@ -16,8 +16,8 @@ public class CitizenDao implements CitizenRepository {
     private final CitizenJpaRepository citizenJpaRepository;
 
     @Override
-    public Citizen save(Citizen user) {
-        CitizenEntity citizenEntity = citizenJpaRepository.save(new CitizenEntity(user));
+    public Citizen save(Citizen citizen) {
+        CitizenEntity citizenEntity = citizenJpaRepository.save(new CitizenEntity(citizen));
         return citizenEntity.toDomain();
     }
 
