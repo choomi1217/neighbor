@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.locationtech.jts.geom.Geometry;
+import who.is.neighbor.address.domain.EupMyeonDong;
 
 @Entity
 public class EupMyeonDongEntity {
@@ -15,4 +16,8 @@ public class EupMyeonDongEntity {
     private String eupMyeonDongName;
 
     private Geometry polygon;
+
+    public EupMyeonDong toDomain() {
+        return new EupMyeonDong(eupMyeonDongName);
+    }
 }

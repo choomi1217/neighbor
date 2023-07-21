@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.hibernate.annotations.Type;
 import org.locationtech.jts.geom.Geometry;
+import who.is.neighbor.address.domain.Sido;
 
 @Entity
 public class SiDoEntity {
@@ -17,4 +18,7 @@ public class SiDoEntity {
 
     private Geometry polygon;
 
+    public Sido toDomain() {
+        return new Sido(siDoName);
+    }
 }

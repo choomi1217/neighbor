@@ -9,8 +9,12 @@ import java.time.LocalDate;
 public record CitizenResponse(
         String nickname,
         String phoneNumber,
-        LocalDate createdAt,
-        AddressResponse address,
-        HobbyResponse hobby
+        LocalDate createdAt
 ) {
+    public CitizenResponse(Citizen domain) {
+        this(domain.nickname(),
+                domain.phoneNumber(),
+                domain.createdAt()
+        );
+    }
 }
