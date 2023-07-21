@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.citizen.application.CitizenService;
 import who.is.neighbor.citizen.web.request.CitizenRegistrationRequest;
+import who.is.neighbor.citizen.web.response.CitizenRegistrationResponse;
 import who.is.neighbor.citizen.web.response.CitizenResponse;
 import who.is.neighbor.hobby.web.request.HobbyRegistrationRequest;
 
@@ -22,16 +23,18 @@ public class CitizenController {
 
     private final CitizenService citizenService;
 
-    public ResponseEntity<CitizenResponse> save(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<CitizenRegistrationResponse> save(@AuthenticationPrincipal UserDetails userDetails,
                                                 @Validated @RequestBody CitizenRegistrationRequest citizenRegistrationRequest,
                                                 @Validated @RequestBody AddressRegistrationRequest addressRegistrationRequest,
                                                 @Validated @RequestBody HobbyRegistrationRequest hobbyRegistrationRequest) throws URISyntaxException {
-        CitizenResponse citizenResponse = citizenService.save(userDetails.getUsername(),
+
+        CitizenRegistrationResponse response = citizenService.save(
+                userDetails.getUsername(),
                 citizenRegistrationRequest,
                 addressRegistrationRequest,
                 hobbyRegistrationRequest);
 
-        return ResponseEntity.created(new URI("/adress-verification")).body(citizenResponse);
+        return ResponseEntity.created(new URI("/adress-verification")).body(response);
     }
 
     public ResponseEntity<CitizenResponse> update(@Validated @RequestBody CitizenRegistrationRequest citizenRegistrationRequest) {
