@@ -1,6 +1,6 @@
 package who.is.neighbor.address.application;
 
-public enum AddresType {
+public enum AddressType {
     HOME,
     OFFICE,
     MAIN,
