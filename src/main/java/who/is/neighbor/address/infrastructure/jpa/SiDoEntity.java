@@ -1,12 +1,10 @@
 package who.is.neighbor.address.infrastructure.jpa;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.hibernate.annotations.Type;
 import org.locationtech.jts.geom.Geometry;
-import who.is.neighbor.address.domain.Sido;
+import who.is.neighbor.address.domain.SiDo;
 
 @Entity
 public class SiDoEntity {
@@ -18,7 +16,7 @@ public class SiDoEntity {
 
     private Geometry polygon;
 
-    public Sido toDomain() {
-        return new Sido(siDoName);
+    public SiDo toDomain() {
+        return new SiDo(siDoName);
     }
 }

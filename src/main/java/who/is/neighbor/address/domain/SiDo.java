@@ -1,4 +1,4 @@
 package who.is.neighbor.address.domain;
 
-public record Sido(String sido) {
+public record SiDo(String sido) {
 }
