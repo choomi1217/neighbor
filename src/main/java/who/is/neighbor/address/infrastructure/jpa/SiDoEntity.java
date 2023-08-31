@@ -3,7 +3,7 @@ package who.is.neighbor.address.infrastructure.jpa;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.locationtech.jts.geom.Geometry;
+import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.SiDo;
 
 @Entity
@@ -14,7 +14,7 @@ public class SiDoEntity {
 
     private String siDoName;
 
-    private Geometry polygon;
+    private PGpolygon polygon;
 
     public SiDo toDomain() {
         return new SiDo(siDoName);

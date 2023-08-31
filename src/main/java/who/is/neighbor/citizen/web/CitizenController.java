@@ -24,17 +24,15 @@ public class CitizenController {
     private final CitizenService citizenService;
 
     public ResponseEntity<CitizenRegistrationResponse> save(@AuthenticationPrincipal UserDetails userDetails,
-                                                @Validated @RequestBody CitizenRegistrationRequest citizenRegistrationRequest,
-                                                @Validated @RequestBody AddressRegistrationRequest addressRegistrationRequest,
-                                                @Validated @RequestBody HobbyRegistrationRequest hobbyRegistrationRequest) throws URISyntaxException {
+                                                            @Validated @RequestBody CitizenRegistrationRequest citizenRegistrationRequest) throws URISyntaxException {
 
         CitizenRegistrationResponse response = citizenService.save(
                 userDetails.getUsername(),
                 citizenRegistrationRequest,
-                addressRegistrationRequest,
-                hobbyRegistrationRequest);
+                citizenRegistrationRequest.addressRegistrationRequest(),
+                citizenRegistrationRequest.hobbyRegistrationRequest());
 
-        return ResponseEntity.created(new URI("/adress-verification")).body(response);
+        return ResponseEntity.created(new URI("/address-verification")).body(response);
     }
 
     public ResponseEntity<CitizenResponse> update(@Validated @RequestBody CitizenRegistrationRequest citizenRegistrationRequest) {

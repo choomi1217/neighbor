@@ -1,13 +1,13 @@
 package who.is.neighbor.address.web.response;
 
 import who.is.neighbor.address.domain.EupMyeonDong;
-import who.is.neighbor.address.domain.Sido;
-import who.is.neighbor.address.domain.Sigungu;
+import who.is.neighbor.address.domain.SiDo;
+import who.is.neighbor.address.domain.SiGunGu;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 
 public record AddressResponse(
-        Sido sido,
-        Sigungu sigungu,
+        SiDo sido,
+        SiGunGu sigungu,
         EupMyeonDong eupMyeonDong,
         String detailAddress,
         String addressType,
@@ -15,8 +15,8 @@ public record AddressResponse(
 ) {
     public AddressResponse(AddressRegistrationRequest citizenRegistrationRequest) {
         this(
-                new Sido(citizenRegistrationRequest.sido()),
-                new Sigungu(citizenRegistrationRequest.sigungu()),
+                new SiDo(citizenRegistrationRequest.sido()),
+                new SiGunGu(citizenRegistrationRequest.sigungu()),
                 new EupMyeonDong(citizenRegistrationRequest.eupMyeonDong()),
                 citizenRegistrationRequest.detailAddress(),
                 citizenRegistrationRequest.addressType(),

@@ -1,5 +1,8 @@
 package who.is.neighbor.account.web;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +23,7 @@ import who.is.neighbor.mail.EmailSendStatus;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@Tag(name = "Account APi")
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
@@ -27,10 +31,13 @@ public class AccountController {
     AccountService accountService;
     AccountUserService accountUserService;
 
+    @Operation(summary = "account 등록")
+    @Parameter(name = "SignUpRequest", description = "account 등록 요청")
     @PostMapping("/accounts")
     public ResponseEntity<SignUpResponse> registration(@Validated @RequestBody SignUpRequest signUpRequest) throws URISyntaxException {
         return ResponseEntity.created(new URI("/accounts/login")).body(accountService.signUp(signUpRequest));
     }
+
 
     @PutMapping("/accounts")
     public ResponseEntity<AccountResponse> update(

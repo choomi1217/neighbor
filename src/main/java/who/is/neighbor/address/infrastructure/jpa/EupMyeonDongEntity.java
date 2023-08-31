@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.locationtech.jts.geom.Geometry;
+import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.EupMyeonDong;
 
 @Entity
@@ -15,7 +15,7 @@ public class EupMyeonDongEntity {
 
     private String eupMyeonDongName;
 
-    private Geometry polygon;
+    private PGpolygon polygon;
 
     public EupMyeonDong toDomain() {
         return new EupMyeonDong(eupMyeonDongName);

@@ -5,9 +5,9 @@ import who.is.neighbor.account.infrastructure.jpa.AccountEntity;
 import who.is.neighbor.account.infrastructure.jpa.CitizenActiveStatus;
 import who.is.neighbor.address.infrastructure.jpa.AddressEntity;
 import who.is.neighbor.citizen.domain.Citizen;
-import who.is.neighbor.hobby.infrastructure.jpa.HobbyEntity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,9 +16,7 @@ public class CitizenEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long citizenId;
-
     private String nickname;
-
     private String phoneNumber;
     private LocalDate createdAt;
     private CitizenActiveStatus activeStatus;
@@ -27,11 +25,13 @@ public class CitizenEntity {
     @JoinColumn(name="account_id")
     private AccountEntity accountEntity;
 
-    @OneToMany(mappedBy = "addressEntity", cascade = CascadeType.ALL)
-    private List<AddressEntity> addressEntity;
+    @OneToMany
+    @JoinColumn(name = "citizen_address_id")
+    private List<AddressEntity> addressEntities = new ArrayList<>();
 
-    @OneToOne(mappedBy = "hobbyEntity", cascade = CascadeType.ALL)
-    private HobbyEntity hobbyEntity;
+    @OneToMany
+    @JoinColumn(name = "citizen_hobby_id")
+    private List<CitizenHobbyEntity> hobbyEntities = new ArrayList<>();
 
     public CitizenEntity(Citizen citizen) {
         this.nickname = citizen.nickname();
@@ -44,7 +44,6 @@ public class CitizenEntity {
 
     public Citizen toDomain() {
 
-        //return new Citizen( this.nickname, this.createdAt);
         return null;
     }
 

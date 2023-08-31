@@ -1,13 +1,21 @@
 package who.is.neighbor.citizen.application;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import who.is.neighbor.address.domain.Address;
+import who.is.neighbor.address.domain.AddressRepository;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.response.AddressResponse;
 import who.is.neighbor.citizen.domain.Citizen;
+import who.is.neighbor.citizen.domain.CitizenHobby;
+import who.is.neighbor.citizen.domain.CitizenHobbyRepository;
 import who.is.neighbor.citizen.domain.CitizenRepository;
 import who.is.neighbor.citizen.web.request.CitizenRegistrationRequest;
+import who.is.neighbor.citizen.web.response.CitizenRegistrationResponse;
 import who.is.neighbor.citizen.web.response.CitizenResponse;
+import who.is.neighbor.hobby.domain.Hobby;
+import who.is.neighbor.hobby.domain.HobbyRepository;
 import who.is.neighbor.hobby.web.request.HobbyRegistrationRequest;
 import who.is.neighbor.hobby.web.response.HobbyResponse;
 
@@ -17,9 +25,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CitizenService {
     private final CitizenRepository citizenRepository;
-    public Citizen save(Citizen citizen) {
-        return citizenRepository.save(citizen);
-    }
+    private final AddressRepository addressRepository;
+    private final HobbyRepository hobbyRepository;
+    private final CitizenHobbyRepository citizenHobbyRepository;
 
     public List<Citizen> findUserByAccountId(Long citizenId) {
         return citizenRepository.findByCitizenId(citizenId);
@@ -29,18 +37,21 @@ public class CitizenService {
         return citizenRepository.delete(accountId);
     }
 
-    public CitizenResponse save(String email,
-                                CitizenRegistrationRequest citizenRegistrationRequest,
-                                AddressRegistrationRequest addressRegistrationRequest,
-                                HobbyRegistrationRequest hobbyRegistrationRequest) {
+    @Transactional
+    public CitizenRegistrationResponse save(String email,
+                                            CitizenRegistrationRequest citizenRegistrationRequest,
+                                            AddressRegistrationRequest addressRegistrationRequest,
+                                            HobbyRegistrationRequest hobbyRegistrationRequest) {
+
+        Address address = new Address(addressRegistrationRequest);
+        AddressResponse  addressResponse = addressRepository.save(address);
+        Hobby hobby = new Hobby(hobbyRegistrationRequest);
+        HobbyResponse hobbyResponse = hobbyRepository.save(hobby);
         Citizen citizen = new Citizen(citizenRegistrationRequest, addressRegistrationRequest, hobbyRegistrationRequest);
-        Citizen saved = citizenRepository.save(citizen);
-        AddressResponse addressResponse = new AddressResponse(saved.addressRegistrationRequest());
-        HobbyResponse hobbyResponse = new HobbyResponse(saved.hobbyRegistrationRequest());
-        return new CitizenResponse(saved.nickname(),
-                saved.phoneNumber(),
-                saved.createdAt(),
-                addressResponse,
-                hobbyResponse);
+        CitizenResponse citizenResponse = citizenRepository.save(citizen);
+        CitizenHobby CitizenHobby = new CitizenHobby(citizen, hobby);
+        citizenHobbyRepository.save(CitizenHobby);
+
+        return new CitizenRegistrationResponse(citizenResponse, addressResponse, hobbyResponse);
     }
 }
