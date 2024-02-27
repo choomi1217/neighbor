@@ -13,7 +13,6 @@ import who.is.neighbor.account.web.request.AccountUpdateRequest;
 public class AccountDao implements AccountRepository {
     private final AccountJpaRepository accountJpaRepository;
 
-    // todo : 계정을 찾지 못했을 때 예외 처리
     @Override
     public Account save(Account account) {
         AccountEntity accountEntity = accountJpaRepository.save(new AccountEntity(account));
@@ -22,7 +21,7 @@ public class AccountDao implements AccountRepository {
 
     @Override
     public Account findByEmail(String email) {
-        AccountEntity accountEntity = accountJpaRepository.findByEmail(email).orElseThrow(()-> new RuntimeException("계정이 존재하지 않습니다."));
+        AccountEntity accountEntity = accountJpaRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("계정이 존재하지 않습니다."));
         return accountEntity.toDomain();
     }
 
@@ -37,7 +36,7 @@ public class AccountDao implements AccountRepository {
 
     @Override
     public Account delete(String email) {
-        AccountEntity accountEntity = accountJpaRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("계정이 존재하지 않습니다."));
+        AccountEntity accountEntity = accountJpaRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("계정이 존재하지 않습니다."));
         accountEntity.delete();
         return accountEntity.toDomain();
     }

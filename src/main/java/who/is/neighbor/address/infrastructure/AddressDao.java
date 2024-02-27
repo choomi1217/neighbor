@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import who.is.neighbor.address.domain.*;
 import who.is.neighbor.address.infrastructure.jpa.*;
+import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.response.AddressResponse;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class AddressDao implements AddressRepository {
     private final SiDoJpaRepository siDoJpaRepository;
     private final SigunguJpaRepository sigunguJpaRepository;
     private final EupMyeonDongJpaRepository eupMyeonDongJpaRepository;
+
     @Override
     public AddressResponse save(Address address) {
         SiDoEntity siDoEntity = siDoJpaRepository.findBySiDoName(address.sido().sidoName());
@@ -44,4 +46,10 @@ public class AddressDao implements AddressRepository {
         List<EupMyeonDongEntity> all = eupMyeonDongJpaRepository.findBySiDoAndSiGunGu(siDoEntity, siGunGuEntity);
         return all.stream().map(EupMyeonDongEntity::toDomain).collect(Collectors.toList());
     }
+
+    @Override
+    public void update(Long addressId, AddressUpdateRequest request) {
+        AddressEntity addressEntity = addressJpaRepository.findById(addressId).orElseThrow();
+    }
+
 }

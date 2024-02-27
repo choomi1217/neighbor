@@ -31,8 +31,6 @@ public class AccountController {
     AccountService accountService;
     AccountUserService accountUserService;
 
-    @Operation(summary = "account 등록")
-    @Parameter(name = "SignUpRequest", description = "account 등록 요청")
     @PostMapping("/accounts")
     public ResponseEntity<SignUpResponse> registration(@Validated @RequestBody SignUpRequest signUpRequest) throws URISyntaxException {
         return ResponseEntity.created(new URI("/accounts/login")).body(accountService.signUp(signUpRequest));
@@ -71,7 +69,7 @@ public class AccountController {
     }
 
     @PostMapping("/accounts/password-verification")
-    public ResponseEntity<PasswordVerificationStatus> passwordVerification(@AuthenticationPrincipal UserDetails userDetails,String password) {
+    public ResponseEntity<PasswordVerificationStatus> passwordVerification(@AuthenticationPrincipal UserDetails userDetails, String password) {
         PasswordVerificationStatus verificationStatus = accountService.passwordVerification(userDetails.getUsername(), password);
         return ResponseEntity.ok(verificationStatus);
     }

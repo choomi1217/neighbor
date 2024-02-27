@@ -15,8 +15,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AccountUserService {
-
-    //private final AccountRepository accountRepository;
     private final AccountService accountService;
     private final CitizenService citizenService;
     private PasswordEncoder passwordEncoder;
@@ -26,14 +24,14 @@ public class AccountUserService {
         Account account = accountService.findByEmail(loginRequest.email());
         List<Citizen> userList = new ArrayList<>();
 
-        if(!passwordEncoder.matches(loginRequest.password(), account.password())){
+        if (!passwordEncoder.matches(loginRequest.password(), account.password())) {
             throw new IllegalArgumentException("Password is not matched");
         }
-        if(AccountEmailVerificationStatus.VERIFIED == account.emailVerificationStatus()){
+        if (AccountEmailVerificationStatus.VERIFIED == account.emailVerificationStatus()) {
             userList = citizenService.findUserByAccountId(account.accountId());
         }
 
-        return new LoginResponse( account.email(), userList, account.emailVerificationStatus());
+        return new LoginResponse(account.email(), userList, account.emailVerificationStatus());
     }
 
     public void delete(String email) {

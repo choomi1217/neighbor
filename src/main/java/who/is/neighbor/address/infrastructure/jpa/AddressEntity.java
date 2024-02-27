@@ -1,14 +1,12 @@
 package who.is.neighbor.address.infrastructure.jpa;
 
 import jakarta.persistence.*;
-import who.is.neighbor.address.domain.Address;
 import who.is.neighbor.address.web.response.AddressResponse;
-import who.is.neighbor.citizen.infrastructure.jpa.CitizenEntity;
 
 @Entity
 public class AddressEntity {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;
 
     @OneToOne(fetch = FetchType.LAZY)
