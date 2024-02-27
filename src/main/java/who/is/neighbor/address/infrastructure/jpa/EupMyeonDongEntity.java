@@ -1,9 +1,6 @@
 package who.is.neighbor.address.infrastructure.jpa;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.EupMyeonDong;
 
@@ -16,6 +13,14 @@ public class EupMyeonDongEntity {
     private String eupMyeonDongName;
 
     private PGpolygon polygon;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="sidoId")
+    private SiDoEntity siDo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="siGunGuId")
+    private SiGunGuEntity siGunGu;
 
     public EupMyeonDong toDomain() {
         return new EupMyeonDong(eupMyeonDongName);

@@ -1,10 +1,10 @@
 package who.is.neighbor.address.infrastructure.jpa;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.SiGunGu;
+
+import java.util.List;
 
 @Entity
 public class SiGunGuEntity {
@@ -16,6 +16,13 @@ public class SiGunGuEntity {
     private String siGunGuName;
 
     private PGpolygon polygon;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="siDoId")
+    private SiDoEntity siDo;
+
+    @OneToMany(mappedBy = "siGunGu")
+    private List<EupMyeonDongEntity> eupMyeonDongEntity;
 
     public SiGunGu toDomain() {
         return new SiGunGu(siGunGuName);

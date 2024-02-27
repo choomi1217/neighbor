@@ -18,8 +18,8 @@ public class AddressDao implements AddressRepository {
     private final EupMyeonDongJpaRepository eupMyeonDongJpaRepository;
     @Override
     public AddressResponse save(Address address) {
-        SiDoEntity siDoEntity = siDoJpaRepository.findBySido(address.sido().sidoName());
-        SiGunGuEntity siGunGuEntity = sigunguJpaRepository.findBySidoAndSigungu(address.sido().sidoName(), address.sigungu().sigunguName());
+        SiDoEntity siDoEntity = siDoJpaRepository.findBySiDoName(address.sido().sidoName());
+        SiGunGuEntity siGunGuEntity = sigunguJpaRepository.findBySiDoAndSiGunGuName(siDoEntity, address.sigungu().sigunguName());
         AddressEntity addressEntity = addressJpaRepository.save(new AddressEntity());
         return addressEntity.toDomain();
     }
@@ -32,13 +32,16 @@ public class AddressDao implements AddressRepository {
 
     @Override
     public List<SiGunGu> getSiGunGuList(String sido) {
-        List<SiGunGuEntity> all = sigunguJpaRepository.findBySido(sido);
+        SiDoEntity siDoEntity = siDoJpaRepository.findBySiDoName(sido);
+        List<SiGunGuEntity> all = sigunguJpaRepository.findBySiDo(siDoEntity);
         return all.stream().map(SiGunGuEntity::toDomain).collect(Collectors.toList());
     }
 
     @Override
     public List<EupMyeonDong> getEupMyeonDongList(String sido, String sigungu) {
-        List<EupMyeonDongEntity> all = eupMyeonDongJpaRepository.findBySidoAndSigungu(sido, sigungu);
+        SiDoEntity siDoEntity = siDoJpaRepository.findBySiDoName(sido);
+        SiGunGuEntity siGunGuEntity = sigunguJpaRepository.findBySiGunGuName(sigungu);
+        List<EupMyeonDongEntity> all = eupMyeonDongJpaRepository.findBySiDoAndSiGunGu(siDoEntity, siGunGuEntity);
         return all.stream().map(EupMyeonDongEntity::toDomain).collect(Collectors.toList());
     }
 }
