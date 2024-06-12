@@ -1,3 +1,7 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "make update"! PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
 FROM postgres:16-bullseye
 
 LABEL maintainer="PostGIS Project - https://postgis.net" \
@@ -18,5 +22,6 @@ RUN apt-get update \
            postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR-scripts \
       && rm -rf /var/lib/apt/lists/*
 
-
-# https://github.com/postgis/docker-postgis?tab=readme-ov-file
+RUN mkdir -p /docker-entrypoint-initdb.d
+COPY ./initdb-postgis.sh /docker-entrypoint-initdb.d/10_postgis.sh
+COPY ./update-postgis.sh /usr/local/bin
