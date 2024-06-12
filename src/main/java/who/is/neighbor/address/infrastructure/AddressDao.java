@@ -52,4 +52,9 @@ public class AddressDao implements AddressRepository {
         AddressEntity addressEntity = addressJpaRepository.findById(addressId).orElseThrow();
     }
 
+    @Override
+    public Address findById(Long addressId) {
+        return null;
+    }
+
 }
