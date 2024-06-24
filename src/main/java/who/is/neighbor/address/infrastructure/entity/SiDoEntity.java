@@ -1,4 +1,4 @@
-package who.is.neighbor.address.infrastructure.jpa;
+package who.is.neighbor.address.infrastructure.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

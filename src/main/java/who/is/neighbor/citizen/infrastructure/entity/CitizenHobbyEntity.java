@@ -1,10 +1,10 @@
-package who.is.neighbor.citizen.infrastructure.jpa;
+package who.is.neighbor.citizen.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import who.is.neighbor.citizen.domain.Citizen;
 import who.is.neighbor.hobby.domain.Hobby;
-import who.is.neighbor.hobby.infrastructure.jpa.HobbyEntity;
+import who.is.neighbor.hobby.infrastructure.entity.HobbyEntity;
 
 @Getter
 @Entity

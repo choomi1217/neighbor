@@ -1,4 +1,4 @@
-package who.is.neighbor.account.application;
+package who.is.neighbor.enums;
 
 public enum AccountActiveStatus {
     ACTIVE,

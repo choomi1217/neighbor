@@ -1,4 +1,4 @@
-package who.is.neighbor.citizen.infrastructure.jpa;
+package who.is.neighbor.citizen.infrastructure.entity;
 
 import java.io.Serializable;
 

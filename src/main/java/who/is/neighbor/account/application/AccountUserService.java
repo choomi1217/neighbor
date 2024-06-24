@@ -8,6 +8,7 @@ import who.is.neighbor.account.web.request.LoginRequest;
 import who.is.neighbor.account.web.response.LoginResponse;
 import who.is.neighbor.citizen.application.CitizenService;
 import who.is.neighbor.citizen.domain.Citizen;
+import who.is.neighbor.enums.AccountEmailVerificationStatus;
 
 import java.util.ArrayList;
 import java.util.List;

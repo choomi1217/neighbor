@@ -1,15 +1,12 @@
 package who.is.neighbor.citizen.domain;
 
-import who.is.neighbor.citizen.web.response.CitizenResponse;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import who.is.neighbor.citizen.infrastructure.entity.CitizenEntity;
 
-import java.util.List;
+public interface CitizenRepository extends JpaRepository<CitizenEntity, Long>{
 
-public interface CitizenRepository {
-    CitizenResponse save(Citizen citizen);
+    @Query("SELECT c FROM CitizenEntity c JOIN c.accountEntity a WHERE a.accountId = :accountId")
+    CitizenEntity findByAccountId(Long accountId);
 
-    List<Citizen> findByCitizenId(Long citizenId);
-
-    Citizen findByAccountId(Long accountId);
-
-    Citizen delete(Long accountId);
 }

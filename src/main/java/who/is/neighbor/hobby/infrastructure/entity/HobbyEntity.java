@@ -1,11 +1,10 @@
-package who.is.neighbor.hobby.infrastructure.jpa;
+package who.is.neighbor.hobby.infrastructure.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import who.is.neighbor.citizen.infrastructure.jpa.CitizenHobbyEntity;
+import who.is.neighbor.citizen.infrastructure.entity.CitizenHobbyEntity;
 import who.is.neighbor.hobby.domain.Hobby;
 import who.is.neighbor.hobby.web.response.HobbyResponse;
 

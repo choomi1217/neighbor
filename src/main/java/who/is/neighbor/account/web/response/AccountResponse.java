@@ -1,7 +1,7 @@
 package who.is.neighbor.account.web.response;
 
-import who.is.neighbor.account.application.AccountActiveStatus;
-import who.is.neighbor.account.application.AccountEmailVerificationStatus;
+import who.is.neighbor.enums.AccountActiveStatus;
+import who.is.neighbor.enums.AccountEmailVerificationStatus;
 
-public record AccountResponse(String email, AccountEmailVerificationStatus isEmailVerified, AccountActiveStatus isActive){
+public record AccountResponse(String email, String nickname, AccountEmailVerificationStatus isEmailVerified, AccountActiveStatus isActive){
 }

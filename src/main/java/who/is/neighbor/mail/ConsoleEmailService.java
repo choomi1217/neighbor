@@ -1,5 +1,8 @@
 package who.is.neighbor.mail;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ConsoleEmailService implements EmailService{
     @Override
     public void send(EmailMessage emailMessage) {

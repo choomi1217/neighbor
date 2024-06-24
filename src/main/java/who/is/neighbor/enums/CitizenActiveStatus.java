@@ -1,4 +1,4 @@
-package who.is.neighbor.account.infrastructure.jpa;
+package who.is.neighbor.enums;
 
 public enum CitizenActiveStatus {
     ACTIVE,

@@ -1,9 +1,9 @@
-package who.is.neighbor.citizen.infrastructure.jpa;
+package who.is.neighbor.citizen.infrastructure.entity;
 
 import jakarta.persistence.*;
-import who.is.neighbor.account.infrastructure.jpa.AccountEntity;
-import who.is.neighbor.account.infrastructure.jpa.CitizenActiveStatus;
-import who.is.neighbor.address.infrastructure.jpa.AddressEntity;
+import who.is.neighbor.account.infrastructure.entity.AccountEntity;
+import who.is.neighbor.enums.CitizenActiveStatus;
+import who.is.neighbor.address.infrastructure.entity.AddressEntity;
 import who.is.neighbor.citizen.domain.Citizen;
 
 import java.time.LocalDate;

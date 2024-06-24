@@ -1,18 +1,29 @@
 package who.is.neighbor.account.domain;
 
-import who.is.neighbor.account.application.AccountActiveStatus;
-import who.is.neighbor.account.application.AccountEmailVerificationStatus;
+import who.is.neighbor.enums.AccountActiveStatus;
+import who.is.neighbor.enums.AccountEmailVerificationStatus;
 
 import java.util.UUID;
 
-public record Account (Long accountId, String email, String password, String emailVerificationToken , AccountEmailVerificationStatus emailVerificationStatus, AccountActiveStatus activeStatus) {
+public record Account(Long accountId,
+                      String email,
+                      String password,
+                      String nickname,
+                      String phoneNumber,
+                      String emailVerificationToken,
+                      AccountEmailVerificationStatus emailVerificationStatus,
+                      AccountActiveStatus activeStatus) {
 
-    public Account(String email, String password) {
+    public Account(String email, String password, String nickname, String phoneNumber) {
         this(null,
                 email,
                 password,
+                nickname,
+                phoneNumber,
                 generateEmailVerificationToken(),
-                AccountEmailVerificationStatus.NON_VERIFIED, AccountActiveStatus.ACTIVE);
+                AccountEmailVerificationStatus.NON_VERIFIED,
+                AccountActiveStatus.ACTIVE
+        );
     }
 
     private static String generateEmailVerificationToken() {
@@ -24,6 +35,8 @@ public record Account (Long accountId, String email, String password, String ema
                 accountId,
                 email,
                 password,
+                nickname,
+                phoneNumber,
                 emailVerificationToken,
                 AccountEmailVerificationStatus.VERIFIED,
                 activeStatus

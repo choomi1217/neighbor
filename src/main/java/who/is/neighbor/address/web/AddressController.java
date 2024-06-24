@@ -48,22 +48,22 @@ public class AddressController {
         return null;
     }
 
-    @GetMapping("/address/sido")
-    public ResponseEntity<List<SiDo>> getSiDo(){
-        List<SiDo> siDoList = addressService.getSiDoList();
-        return ResponseEntity.ok(siDoList);
-    }
-
-    @GetMapping("/address/sigungu")
-    public ResponseEntity<List<SiGunGu>> getSiGunGu(String sido){
-        List<SiGunGu> siGunGuList = addressService.getSiGunGuList(sido);
-        return ResponseEntity.ok(siGunGuList);
-    }
-
-    @GetMapping("/address/eupmyeondong")
-    public ResponseEntity<List<EupMyeonDong>> getEupMyeonDong(String sido, String sigungu){
-        List<EupMyeonDong> eupMyeonDongList = addressService.getEupMyeonDongList(sido, sigungu);
-        return ResponseEntity.ok(eupMyeonDongList);
-    }
+//    @GetMapping("/address/sido")
+//    public ResponseEntity<List<SiDo>> getSiDo(){
+//        List<SiDo> siDoList = addressService.getSiDoList();
+//        return ResponseEntity.ok(siDoList);
+//    }
+//
+//    @GetMapping("/address/sigungu")
+//    public ResponseEntity<List<SiGunGu>> getSiGunGu(String sido){
+//        List<SiGunGu> siGunGuList = addressService.getSiGunGuList(sido);
+//        return ResponseEntity.ok(siGunGuList);
+//    }
+//
+//    @GetMapping("/address/eupmyeondong")
+//    public ResponseEntity<List<EupMyeonDong>> getEupMyeonDong(String sido, String sigungu){
+//        List<EupMyeonDong> eupMyeonDongList = addressService.getEupMyeonDongList(sido, sigungu);
+//        return ResponseEntity.ok(eupMyeonDongList);
+//    }
 
 }

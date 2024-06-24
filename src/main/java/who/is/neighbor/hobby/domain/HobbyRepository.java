@@ -1,7 +1,7 @@
 package who.is.neighbor.hobby.domain;
 
-import who.is.neighbor.hobby.web.response.HobbyResponse;
+import org.springframework.data.jpa.repository.JpaRepository;
+import who.is.neighbor.hobby.infrastructure.entity.HobbyEntity;
 
-public interface HobbyRepository {
-    HobbyResponse save(Hobby hobby);
+public interface HobbyRepository extends JpaRepository<HobbyEntity, Long>{
 }
