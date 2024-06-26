@@ -5,9 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import who.is.neighbor.address.application.AddressService;
-import who.is.neighbor.address.domain.EupMyeonDong;
-import who.is.neighbor.address.domain.SiDo;
-import who.is.neighbor.address.domain.SiGunGu;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.request.Coordinates;
@@ -16,7 +13,6 @@ import who.is.neighbor.address.web.response.AddressVerifiedResponse;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,9 +27,7 @@ public class AddressController {
 
     @PutMapping("/address/{addressId}")
     public ResponseEntity<AddressResponse> update(@PathVariable Long addressId, AddressUpdateRequest request) {
-        addressService.update(addressId, request);
-        //todo
-        return null;
+        return ResponseEntity.ok(addressService.update(addressId, request));
     }
 
     @DeleteMapping("/address")
@@ -50,7 +44,7 @@ public class AddressController {
 
 //    @GetMapping("/address/sido")
 //    public ResponseEntity<List<SiDo>> getSiDo(){
-//        List<SiDo> siDoList = addressService.getSiDoList();
+//        List<SiDo> siDoList = addressServi]ce.getSiDoList();
 //        return ResponseEntity.ok(siDoList);
 //    }
 //

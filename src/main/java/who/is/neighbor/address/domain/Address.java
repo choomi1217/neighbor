@@ -3,17 +3,17 @@ package who.is.neighbor.address.domain;
 import who.is.neighbor.address.application.AddressType;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 
-public record Address(SiDo sido,
-                      SiGunGu sigungu,
-                      EupMyeonDong eupMyeonDong,
+public record Address(Sido sido,
+                      Sigungu sigungu,
+                      Eupmyeondong eupMyeonDong,
                       String detailAddress,
                       AddressType addressType) {
     public Address(AddressRegistrationRequest addressRegistrationRequest) {
-        this(new SiDo(addressRegistrationRequest.sido()),
-             new SiGunGu(addressRegistrationRequest.sigungu()),
-             new EupMyeonDong(addressRegistrationRequest.eupMyeonDong()),
+        this(new Sido(addressRegistrationRequest.sidoName()),
+             new Sigungu(addressRegistrationRequest.sidoName(), addressRegistrationRequest.sigunguName()),
+             new Eupmyeondong(addressRegistrationRequest.sidoName(), addressRegistrationRequest.sigunguName(), addressRegistrationRequest.eupmyeondongName()),
              addressRegistrationRequest.detailAddress(),
-             AddressType.valueOf(addressRegistrationRequest.addressType()));
+             addressRegistrationRequest.addressType());
     }
 
 }

@@ -1,26 +1,27 @@
 package who.is.neighbor.address.web.response;
 
-import who.is.neighbor.address.domain.EupMyeonDong;
-import who.is.neighbor.address.domain.SiDo;
-import who.is.neighbor.address.domain.SiGunGu;
+import who.is.neighbor.address.application.AddressType;
+import who.is.neighbor.address.domain.Eupmyeondong;
+import who.is.neighbor.address.domain.Sido;
+import who.is.neighbor.address.domain.Sigungu;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 
 public record AddressResponse(
-        SiDo sido,
-        SiGunGu sigungu,
-        EupMyeonDong eupMyeonDong,
+        Sido sido,
+        Sigungu sigungu,
+        Eupmyeondong eupMyeonDong,
         String detailAddress,
-        String addressType,
-        String addressVerificationStatus
+        AddressType addressType,
+        Boolean addressVerificationStatus
 ) {
-    public AddressResponse(AddressRegistrationRequest citizenRegistrationRequest) {
+    public AddressResponse(AddressRegistrationRequest citizenRegistrationRequest, Boolean addressVerificationStatus) {
         this(
-                new SiDo(citizenRegistrationRequest.sido()),
-                new SiGunGu(citizenRegistrationRequest.sigungu()),
-                new EupMyeonDong(citizenRegistrationRequest.eupMyeonDong()),
+                new Sido(citizenRegistrationRequest.sidoName()),
+                new Sigungu(citizenRegistrationRequest.sidoName(), citizenRegistrationRequest.sigunguName()),
+                new Eupmyeondong(citizenRegistrationRequest.sidoName(), citizenRegistrationRequest.sigunguName(), citizenRegistrationRequest.eupmyeondongName()),
                 citizenRegistrationRequest.detailAddress(),
                 citizenRegistrationRequest.addressType(),
-                citizenRegistrationRequest.addressVerificationStatus()
+                addressVerificationStatus
         );
     }
 }

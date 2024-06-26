@@ -38,7 +38,7 @@ class AccountServiceTest {
     @Autowired
     private AccountRepository repository;
 
-    private EmailService emailService = mock(JavaEmailService.class);
+    private JavaEmailService emailService = mock(JavaEmailService.class);
 
     private final String email = "test@naver.com";
     private final String nickname = "nickname";

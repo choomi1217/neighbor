@@ -17,6 +17,7 @@ import who.is.neighbor.enums.PasswordVerificationStatus;
 import who.is.neighbor.mail.EmailMessage;
 import who.is.neighbor.mail.EmailSendStatus;
 import who.is.neighbor.mail.EmailService;
+import who.is.neighbor.mail.JavaEmailService;
 
 @Service
 public class AccountService {
@@ -26,7 +27,7 @@ public class AccountService {
     private final EmailService emailService;
 
     @Autowired
-    public AccountService(AccountRepository repository, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public AccountService(AccountRepository repository, PasswordEncoder passwordEncoder, JavaEmailService emailService) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;

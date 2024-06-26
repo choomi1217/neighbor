@@ -1,7 +1,8 @@
 package who.is.neighbor.address.infrastructure.entity;
 
 import jakarta.persistence.*;
-import who.is.neighbor.address.domain.Address;
+import who.is.neighbor.address.application.AddressType;
+import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.response.AddressResponse;
 
@@ -11,30 +12,44 @@ public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long addressId;
 
+    private String detailAddress;
+
+    private AddressType addressType;
+
+    private Boolean addressVerificationStatus;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "si_do_id")
-    private SiDoEntity siDo;
+    private SidoEntity siDo;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "si_gun_gu_id")
-    private SiGunGuEntity siGunGu;
+    private SigunguEntity siGunGu;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "eup_myeon_dong_id")
-    private EupMyeonDongEntity eupMyeonDong;
+    private EupmyeondongEntity eupMyeonDong;
 
-    public AddressEntity(Address address) {
-//        this.siDo = new SiDoEntity(address.sido());
-//        this.siGunGu = new SiGunGuEntity(address.sigungu());
-//        this.eupMyeonDong = new EupMyeonDongEntity(address.eupMyeonDong());
+    public AddressEntity() {
+
     }
 
+    public AddressEntity(SidoEntity siDo, SigunguEntity sigungu, EupmyeondongEntity eupMyeonDong, AddressRegistrationRequest request) {
+        this.siDo = siDo;
+        this.siGunGu = sigungu;
+        this.eupMyeonDong = eupMyeonDong;
+        this.detailAddress = request.detailAddress();
+        this.addressType = request.addressType();
+        this.addressVerificationStatus = false;
+    }
 
     public AddressResponse toDomain() {
         return null;
     }
 
     public void update(AddressUpdateRequest request) {
-
+        this.detailAddress = request.detailAddress();
+        this.addressType = request.addressType();
+        this.addressVerificationStatus = request.addressVerificationStatus();
     }
 }
