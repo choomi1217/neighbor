@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import who.is.neighbor.address.domain.Address;
 import who.is.neighbor.address.domain.Eupmyeondong;
 import who.is.neighbor.address.domain.Sido;
 import who.is.neighbor.address.domain.Sigungu;
@@ -22,12 +21,12 @@ import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.response.AddressResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class AddressServiceTest {
@@ -36,6 +35,7 @@ class AddressServiceTest {
     @MockBean
     private AddressService addressService;
     @Autowired
+    @MockBean
     private AddressRepository addressRepository;
 
     @Autowired
@@ -144,7 +144,7 @@ class AddressServiceTest {
         given(eupmyeondongRepository.findBySiDoAndSiGunGuAndEupMyeonDongName(sidoEntity, sigunguEntity, eupmyeondongName)).willReturn(eupmyeondongEntity);
 
         AddressEntity addressEntity = new AddressEntity(sidoEntity, sigunguEntity, eupmyeondongEntity, request);
-        given(addressRepository.save(addressEntity)).willReturn(addressEntity);
+        given(addressRepository.save(any(AddressEntity.class))).willReturn(addressEntity);
         AddressResponse addressResponse = addressService.save(request);
 
         assertThat(addressResponse).isNotNull();
@@ -160,14 +160,35 @@ class AddressServiceTest {
     @Test
     void update() {
         Long addressId = 1L;
-        AddressUpdateRequest request = new AddressUpdateRequest(detailAddress, AddressType.HOME, true);
+        AddressUpdateRequest request = new AddressUpdateRequest(sidoName, sigunguName, eupmyeondongName, "테스트길 52", AddressType.HOME);
 
         AddressEntity addressEntity = mock(AddressEntity.class);
-        when(addressRepository.findById(addressId)).thenReturn(java.util.Optional.of(addressEntity));
+        when(addressRepository.findById(addressId)).thenReturn(Optional.of(addressEntity));
 
         AddressResponse addressResponse = addressService.update(addressId, request);
 
         assertThat(addressResponse).isNotNull();
+        assertThat(addressResponse.sido().sidoName()).isEqualTo(sidoName);
+        assertThat(addressResponse.sigungu().sigunguName()).isEqualTo(sigunguName);
+        assertThat(addressResponse.eupMyeonDong().eupmyeondongName()).isEqualTo(eupmyeondongName);
+        assertThat(addressResponse.detailAddress()).isEqualTo("테스트길 52");
+        assertThat(addressResponse.addressType()).isEqualTo(AddressType.HOME);
+    }
+
+    private void saveAddressEntity() {
+        AddressRegistrationRequest request = new AddressRegistrationRequest(sidoName, sigunguName, eupmyeondongName, detailAddress, AddressType.HOME);
+
+        SidoEntity sidoEntity = getSidoEntity();
+        SigunguEntity sigunguEntity = getSigunguEntity(sidoEntity);
+        EupmyeondongEntity eupmyeondongEntity = getEupmyeondongEntity(sidoEntity, sigunguEntity);
+
+        given(siDoRepository.findBySidoName(sidoName)).willReturn(sidoEntity);
+        given(sigunguRepository.findBySidoAndSigunguName(sidoEntity, sigunguName)).willReturn(sigunguEntity);
+        given(eupmyeondongRepository.findBySiDoAndSiGunGuAndEupMyeonDongName(sidoEntity, sigunguEntity, eupmyeondongName)).willReturn(eupmyeondongEntity);
+
+        AddressEntity addressEntity = new AddressEntity(1L, sidoEntity, sigunguEntity, eupmyeondongEntity, request);
+        given(addressRepository.save(any(AddressEntity.class))).willReturn(addressEntity);
+        addressService.save(request);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package who.is.neighbor.address.application;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import who.is.neighbor.address.domain.Eupmyeondong;
 import who.is.neighbor.address.domain.Sido;
 import who.is.neighbor.address.domain.Sigungu;
@@ -58,6 +59,7 @@ public class AddressService {
         return all.stream().map(EupmyeondongEntity::toDomain).toList();
     }
 
+    @Transactional
     public AddressResponse update(Long addressId, AddressUpdateRequest request) {
         AddressEntity addressEntity = addressRepository.findById(addressId).orElseThrow();
         addressEntity.update(request);

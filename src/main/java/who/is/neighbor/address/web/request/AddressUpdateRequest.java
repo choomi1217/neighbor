@@ -7,7 +7,6 @@ public record AddressUpdateRequest(
         String sigungu,
         String eupMyeonDong,
         String detailAddress,
-        AddressType addressType,
-        Boolean addressVerificationStatus
+        AddressType addressType
 ) {
 }
