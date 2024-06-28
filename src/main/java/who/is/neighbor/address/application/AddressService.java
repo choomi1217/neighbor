@@ -1,5 +1,10 @@
 package who.is.neighbor.address.application;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
+import org.postgresql.geometric.PGpolygon;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import who.is.neighbor.address.domain.Eupmyeondong;
@@ -15,7 +20,9 @@ import who.is.neighbor.address.infrastructure.entity.SidoEntity;
 import who.is.neighbor.address.infrastructure.entity.SigunguEntity;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.request.AddressUpdateRequest;
+import who.is.neighbor.address.web.request.Coordinates;
 import who.is.neighbor.address.web.response.AddressResponse;
+import who.is.neighbor.address.web.response.AddressVerifiedResponse;
 
 import java.util.List;
 
@@ -68,5 +75,17 @@ public class AddressService {
 
     public void delete(Long addressId) {
         addressRepository.deleteById(addressId);
+    }
+
+    public boolean addressVerification(Long addressId, Coordinates coordinates) {
+
+        AddressEntity addressEntity = addressRepository.findById(addressId).orElseThrow(() -> new IllegalArgumentException("주소를 먼저 등록해주세요."));
+
+        Polygon polygon = addressEntity.getEupmyeondong().getPolygon();
+
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = geometryFactory.createPoint(new Coordinate(coordinates.longitude(), coordinates.latitude()));
+
+        return polygon.contains(point);
     }
 }

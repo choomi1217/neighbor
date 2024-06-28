@@ -10,6 +10,7 @@ import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.request.Coordinates;
 import who.is.neighbor.address.web.response.AddressResponse;
 import who.is.neighbor.address.web.response.AddressVerifiedResponse;
+import who.is.neighbor.enums.AddressVerified;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,16 +31,19 @@ public class AddressController {
         return ResponseEntity.ok(addressService.update(addressId, request));
     }
 
-    @DeleteMapping("/address")
-    public ResponseEntity<Void> delete() {
-        //todo : 주소 삭제 처리
-        return null;
+    @DeleteMapping("/address/{addressId}")
+    public ResponseEntity<Void> delete(@PathVariable Long addressId) {
+        addressService.delete(addressId);
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/address-verification/{coordinates}")
-    public ResponseEntity<AddressVerifiedResponse> addressVerification(@PathVariable("coordinates") Coordinates coordinates) {
-        //todo : 주소 검증 처리
-        return null;
+    @PostMapping("/address-verification/{addressId}")
+    public ResponseEntity<AddressVerified> addressVerification(@PathVariable Long addressId, @Validated Coordinates coordinates) {
+        if (addressService.addressVerification(addressId, coordinates)) {
+            return ResponseEntity.ok(AddressVerified.VERIFIED);
+        }else {
+            return ResponseEntity.ok(AddressVerified.NON_VERIFIED);
+        }
     }
 
 //    @GetMapping("/address/sido")

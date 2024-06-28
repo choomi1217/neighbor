@@ -1,4 +1,4 @@
 package who.is.neighbor.address.web.request;
 
-public record Coordinates() {
+public record Coordinates(double latitude, double longitude) {
 }

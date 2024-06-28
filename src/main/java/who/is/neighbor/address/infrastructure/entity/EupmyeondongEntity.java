@@ -1,9 +1,12 @@
 package who.is.neighbor.address.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import org.locationtech.jts.geom.Polygon;
 import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.Eupmyeondong;
 
+@Getter
 @Entity
 public class EupmyeondongEntity {
     @Id
@@ -12,7 +15,8 @@ public class EupmyeondongEntity {
 
     private String eupmyeondongName;
 
-    private PGpolygon polygon;
+    @Column(columnDefinition = "geometry(POLYGON, 4326)")
+    private Polygon polygon;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="sidoId")
@@ -21,6 +25,10 @@ public class EupmyeondongEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="sigunguId")
     private SigunguEntity sigungu;
+
+    public EupmyeondongEntity() {
+
+    }
 
     public EupmyeondongEntity(SidoEntity sidoEntity, SigunguEntity sigunguEntity, Eupmyeondong eupmyeondong) {
         this.sido = sidoEntity;
