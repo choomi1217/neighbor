@@ -23,6 +23,7 @@ import who.is.neighbor.address.web.response.AddressResponse;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -154,7 +155,7 @@ class AddressServiceTest {
     @Test
     void delete() {
         Long addressId = 1L;
-        sut.delete(addressId);
+        assertThatNoException().isThrownBy(() -> sut.delete(addressId));
     }
 
     private SidoEntity getSidoEntity() {
