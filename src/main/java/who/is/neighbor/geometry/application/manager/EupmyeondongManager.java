@@ -1,6 +1,7 @@
 package who.is.neighbor.geometry.application.manager;
 
 import org.geotools.feature.FeatureIterator;
+import org.locationtech.jts.geom.Polygon;
 import org.opengis.feature.simple.SimpleFeature;
 import org.postgresql.geometric.PGpolygon;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ public class EupmyeondongManager implements GeometryEntityManager<EupmyeondongEn
     }
 
     @Override
-    public EupmyeondongEntity createEntity(Object id, Object name, PGpolygon geometry) {
+    public EupmyeondongEntity createEntity(Object id, Object name, Polygon geometry) {
         return new EupmyeondongEntity((String) id, String.valueOf(name), geometry);
     }
 }

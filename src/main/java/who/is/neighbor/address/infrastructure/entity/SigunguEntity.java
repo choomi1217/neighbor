@@ -2,6 +2,7 @@ package who.is.neighbor.address.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.locationtech.jts.geom.Polygon;
 import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.Sigungu;
 
@@ -17,7 +18,7 @@ public class SigunguEntity {
 
     private String sigunguName;
 
-    private PGpolygon polygon;
+    private Polygon polygon;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="sidoId")
@@ -39,7 +40,7 @@ public class SigunguEntity {
         this.sigunguName = sigungu.sigunguName();
     }
 
-    public SigunguEntity(String id, String name, PGpolygon geometry) {
+    public SigunguEntity(String id, String name, Polygon geometry) {
         this.sigunguId = id;
         this.sigunguName = name;
         this.polygon = geometry;

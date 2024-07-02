@@ -189,17 +189,6 @@ class AddressServiceTest {
         return new AddressEntity(sidoEntity, sigunguEntity, eupmyeondongEntity, request);
     }
 
-    private Polygon createPolygon() {
-        GeometryFactory geometryFactory = new GeometryFactory();
-        Coordinate[] coordinates = new Coordinate[]{
-                new Coordinate(126.9784, 37.5665),
-                new Coordinate(127.0, 37.6),
-                new Coordinate(126.95, 37.6),
-                new Coordinate(126.9784, 37.5665)
-        };
-        return geometryFactory.createPolygon(coordinates);
-    }
-
     @Test
     void testAddressVerification_InsidePolygon() {
         AddressEntity addressEntity = mock(AddressEntity.class);
@@ -209,6 +198,7 @@ class AddressServiceTest {
 
         when(addressRepository.findById(anyLong())).thenReturn(Optional.of(addressEntity));
         when(addressEntity.getEupmyeondong()).thenReturn(eupmyeondongEntity);
+        when(eupmyeondongEntity.getPolygon()).thenReturn(polygon);
 
         Coordinates coordinates = new Coordinates(37.5665, 126.9784);
         Point point = geometryFactory.createPoint(new Coordinate(coordinates.longitude(), coordinates.latitude()));

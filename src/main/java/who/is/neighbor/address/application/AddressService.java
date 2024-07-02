@@ -4,6 +4,7 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
+import org.postgresql.geometric.PGpolygon;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import who.is.neighbor.address.domain.Eupmyeondong;
@@ -78,7 +79,6 @@ public class AddressService {
     public boolean addressVerification(Long addressId, Coordinates coordinates) {
 
         AddressEntity addressEntity = addressRepository.findById(addressId).orElseThrow(() -> new IllegalArgumentException("주소를 먼저 등록해주세요."));
-
         Polygon polygon = addressEntity.getEupmyeondong().getPolygon();
 
         GeometryFactory geometryFactory = new GeometryFactory();

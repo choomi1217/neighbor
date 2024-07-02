@@ -1,6 +1,7 @@
 package who.is.neighbor.geometry.application.manager;
 
 import org.geotools.feature.FeatureIterator;
+import org.locationtech.jts.geom.Polygon;
 import org.opengis.feature.simple.SimpleFeature;
 import org.postgresql.geometric.PGpolygon;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class SidoManager implements GeometryEntityManager<SidoEntity> {
     }
 
     @Override
-    public SidoEntity createEntity(Object id, Object name, PGpolygon geometry) {
+    public SidoEntity createEntity(Object id, Object name, Polygon geometry) {
         return new SidoEntity(id, name, geometry);
     }
 }

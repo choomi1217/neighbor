@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
+import org.locationtech.jts.geom.Polygon;
 import org.postgresql.geometric.PGpolygon;
 import who.is.neighbor.address.domain.Sido;
 
@@ -19,7 +20,7 @@ public class SidoEntity {
 
     private String sidoName;
 
-    private PGpolygon polygon;
+    private Polygon polygon;
 
     @OneToMany(mappedBy = "sido")
     private List<SigunguEntity> siGunGuEntity;
@@ -35,7 +36,7 @@ public class SidoEntity {
         this.sidoName = sido.sidoName();
     }
 
-    public SidoEntity(Object sidoId, Object sidoName, PGpolygon geometry) {
+    public SidoEntity(Object sidoId, Object sidoName, Polygon geometry) {
         this.siDoId = (Long) sidoId;
         this.sidoName = (String) sidoName;
         this.polygon = geometry;

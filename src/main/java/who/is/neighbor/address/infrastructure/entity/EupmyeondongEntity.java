@@ -16,7 +16,7 @@ public class EupmyeondongEntity {
     private String eupmyeondongName;
 
     @Column(columnDefinition = "geometry(POLYGON, 4326)")
-    private PGpolygon polygon;
+    private Polygon polygon;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="sidoId")
@@ -40,7 +40,7 @@ public class EupmyeondongEntity {
         this.eupmyeondongName = eupmyeondong.eupmyeondongName();
     }
 
-    public EupmyeondongEntity(String id, String name, PGpolygon geometry) {
+    public EupmyeondongEntity(String id, String name, Polygon geometry) {
         this.eupmyeondongId = id;
         this.eupmyeondongName = name;
         this.polygon = geometry;
