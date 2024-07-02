@@ -5,13 +5,12 @@ import org.opengis.feature.simple.SimpleFeature;
 import org.postgresql.geometric.PGpolygon;
 import org.springframework.stereotype.Component;
 import who.is.neighbor.address.infrastructure.EupmyeondongRepository;
-import who.is.neighbor.address.infrastructure.GeometryRepository;
 import who.is.neighbor.address.infrastructure.entity.EupmyeondongEntity;
 
 import java.sql.SQLException;
 
 @Component
-public class EupmyeondongManager implements GeometryEntityManager{
+public class EupmyeondongManager implements GeometryEntityManager<EupmyeondongEntity> {
 
     private final EupmyeondongRepository repository;
 
