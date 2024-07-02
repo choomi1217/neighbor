@@ -19,8 +19,17 @@ public class ManagerFactory {
     }
 
     public GeometryEntityManager getManager(String tableName) {
-        GeometryTableFactory.valueOf(tableName);
-        GeometryEntityManager manager = geometryTableFactory.getManager();
-        return manager;
+        switch (GeometryTableFactory.valueOf(tableName)) {
+            case SIDO -> {
+                return new SidoManager(sidoRepository);
+            }
+            case SIGUNGU -> {
+                return new SigunguManager(sigunguRepository);
+            }
+            case EUPMYEONDONG -> {
+                return new EupmyeondongManager(eupmyeondongRepository);
+            }
+            default -> throw new IllegalArgumentException("Invalid Table Name");
+        }
     }
 }
