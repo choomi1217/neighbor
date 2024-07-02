@@ -2,6 +2,10 @@ package who.is.neighbor.address.application;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,6 +22,7 @@ import who.is.neighbor.address.infrastructure.entity.SidoEntity;
 import who.is.neighbor.address.infrastructure.entity.SigunguEntity;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.request.AddressUpdateRequest;
+import who.is.neighbor.address.web.request.Coordinates;
 import who.is.neighbor.address.web.response.AddressResponse;
 
 import java.util.List;
@@ -25,6 +30,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -172,4 +179,54 @@ class AddressServiceTest {
         Eupmyeondong eupmyeondong = new Eupmyeondong(sidoName, sigunguName, eupmyeondongName);
         return new EupmyeondongEntity(sidoEntity, sigunguEntity, eupmyeondong);
     }
+
+    private AddressEntity getAddressEntity() {
+        AddressRegistrationRequest request = new AddressRegistrationRequest(sidoName, sigunguName, eupmyeondongName, detailAddress, AddressType.HOME);
+
+        SidoEntity sidoEntity = getSidoEntity();
+        SigunguEntity sigunguEntity = getSigunguEntity(sidoEntity);
+        EupmyeondongEntity eupmyeondongEntity = getEupmyeondongEntity(sidoEntity, sigunguEntity);
+        return new AddressEntity(sidoEntity, sigunguEntity, eupmyeondongEntity, request);
+    }
+
+    private Polygon createPolygon() {
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Coordinate[] coordinates = new Coordinate[]{
+                new Coordinate(126.9784, 37.5665),
+                new Coordinate(127.0, 37.6),
+                new Coordinate(126.95, 37.6),
+                new Coordinate(126.9784, 37.5665)
+        };
+        return geometryFactory.createPolygon(coordinates);
+    }
+
+    @Test
+    void testAddressVerification_InsidePolygon() {
+        AddressEntity addressEntity = mock(AddressEntity.class);
+        EupmyeondongEntity eupmyeondongEntity = mock(EupmyeondongEntity.class);
+        Polygon polygon = mock(Polygon.class);
+        GeometryFactory geometryFactory = new GeometryFactory();
+
+        when(addressRepository.findById(anyLong())).thenReturn(Optional.of(addressEntity));
+        when(addressEntity.getEupmyeondong()).thenReturn(eupmyeondongEntity);
+
+        Coordinates coordinates = new Coordinates(37.5665, 126.9784);
+        Point point = geometryFactory.createPoint(new Coordinate(coordinates.longitude(), coordinates.latitude()));
+        when(polygon.contains(point)).thenReturn(true);
+
+        boolean result = sut.addressVerification(1L, coordinates);
+        assertTrue(result);
+    }
+
+    @Test
+    void testAddressVerification_OutsidePolygon() {
+        AddressEntity addressEntity = getAddressEntity();
+
+        when(addressRepository.findById(anyLong())).thenReturn(Optional.of(addressEntity));
+
+        Coordinates coordinates = new Coordinates(38.0, 127.0);
+        boolean result = sut.addressVerification(1L, coordinates);
+        assertFalse(result);
+    }
+
 }

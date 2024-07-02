@@ -12,8 +12,8 @@ import java.util.List;
 public class SigunguEntity {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long sigunguId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String sigunguId;
 
     private String sigunguName;
 
@@ -37,6 +37,12 @@ public class SigunguEntity {
 
     public SigunguEntity(Sigungu sigungu) {
         this.sigunguName = sigungu.sigunguName();
+    }
+
+    public SigunguEntity(String id, String name, PGpolygon geometry) {
+        this.sigunguId = id;
+        this.sigunguName = name;
+        this.polygon = geometry;
     }
 
     public Sigungu toDomain() {

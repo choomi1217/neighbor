@@ -10,13 +10,13 @@ import who.is.neighbor.address.domain.Eupmyeondong;
 @Entity
 public class EupmyeondongEntity {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long eupmyeondongId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String eupmyeondongId;
 
     private String eupmyeondongName;
 
     @Column(columnDefinition = "geometry(POLYGON, 4326)")
-    private Polygon polygon;
+    private PGpolygon polygon;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="sidoId")
@@ -40,7 +40,14 @@ public class EupmyeondongEntity {
         this.eupmyeondongName = eupmyeondong.eupmyeondongName();
     }
 
+    public EupmyeondongEntity(String id, String name, PGpolygon geometry) {
+        this.eupmyeondongId = id;
+        this.eupmyeondongName = name;
+        this.polygon = geometry;
+    }
+
     public Eupmyeondong toDomain() {
         return new Eupmyeondong(sido.getSidoName(), sigungu.getSigunguName(), eupmyeondongName);
     }
+
 }

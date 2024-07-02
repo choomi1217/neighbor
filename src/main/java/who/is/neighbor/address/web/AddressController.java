@@ -9,7 +9,6 @@ import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.request.Coordinates;
 import who.is.neighbor.address.web.response.AddressResponse;
-import who.is.neighbor.address.web.response.AddressVerifiedResponse;
 import who.is.neighbor.enums.AddressVerified;
 
 import java.net.URI;
@@ -41,7 +40,7 @@ public class AddressController {
     public ResponseEntity<AddressVerified> addressVerification(@PathVariable Long addressId, @Validated Coordinates coordinates) {
         if (addressService.addressVerification(addressId, coordinates)) {
             return ResponseEntity.ok(AddressVerified.VERIFIED);
-        }else {
+        } else {
             return ResponseEntity.ok(AddressVerified.NON_VERIFIED);
         }
     }

@@ -35,6 +35,12 @@ public class SidoEntity {
         this.sidoName = sido.sidoName();
     }
 
+    public SidoEntity(Object sidoId, Object sidoName, PGpolygon geometry) {
+        this.siDoId = (Long) sidoId;
+        this.sidoName = (String) sidoName;
+        this.polygon = geometry;
+    }
+
     public Sido toDomain() {
         return new Sido(sidoName);
     }

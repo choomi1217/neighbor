@@ -12,8 +12,10 @@ java {
 }
 
 repositories {
+    maven { url "https://repo.osgeo.org/repository/release/"}
     mavenCentral()
 }
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'

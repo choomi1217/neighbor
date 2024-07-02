@@ -9,7 +9,7 @@ import who.is.neighbor.address.infrastructure.entity.SigunguEntity;
 
 import java.util.List;
 
-public interface EupmyeondongRepository extends JpaRepository<EupmyeondongEntity, Long> {
+public interface EupmyeondongRepository extends GeometryRepository<EupmyeondongEntity> {
 
     @Query("""
             select e from EupmyeondongEntity e where e.sido = :sido and e.sigungu = :sigungu
