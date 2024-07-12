@@ -8,7 +8,7 @@ https://github.com/choomi1217/neighbor.git
 
 ---
 
-### 🔧 API 설계
+### 🔧API 설계
 
 - 사용자 ( account )
     - 사용자 등록 `POST /accounts`
@@ -51,16 +51,19 @@ https://github.com/choomi1217/neighbor.git
 
 ---
 
-### 🔧 기능
+### 🔧흐름도
 
-- 자바 17
-- 스프링 3.1.1
-    - 웹 소캣
-        - 채팅
-    - 스프링 배치
-        - 매월 데이터
-    - 스프링 시큐리티
-- 스웨거
+
+
+---
+
+### 🔧기능
+
+- java 17
+  - geo coding
+- spring 3.1.1
+    - security
+- swagger
 - postgres
     - postgis
 
@@ -68,17 +71,6 @@ https://github.com/choomi1217/neighbor.git
 
 ### 🔧설계도
 ![erd](./erd.drawio.png)
-![클래스 다이어그램](./대한민국_행정체계_JPA.png)
+![neighbor_account_join.png](neighbor_account_join.png)
+![neihbor_citizen.drawio.png](neihbor_citizen.drawio.png)
 ---
-
-### 🔧 참고
-
-- **springBoot Websocket**
-
-[Realtime Chatroom application - SpringBoot, Websocket, ReactJS](https://www.youtube.com/watch?v=o_IjEDAuo8Y)
-
-- **RestAPI 설계**
-
-[RESTful API 설계 가이드](https://sanghaklee.tistory.com/57)
-
-[REST API 제대로 알고 사용하기 : NHN Cloud Meetup](https://meetup.nhncloud.com/posts/92)
