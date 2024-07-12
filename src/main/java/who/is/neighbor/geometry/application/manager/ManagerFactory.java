@@ -18,7 +18,7 @@ public class ManagerFactory {
         this.eupmyeondongRepository = eupmyeondongRepository;
     }
 
-    public GeometryEntityManager getManager(String tableName) {
+    public GeometryEntityManager<?> getManager(String tableName) {
         switch (GeometryTableFactory.valueOf(tableName)) {
             case SIDO -> {
                 return new SidoManager(sidoRepository);

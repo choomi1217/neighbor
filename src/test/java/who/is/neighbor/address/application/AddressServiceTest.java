@@ -56,12 +56,12 @@ class AddressServiceTest {
     private final String detailAddress = "강남대로 1234";
 
     @Test
-    void getSiDoList() {
+    void getsidolist() {
         SidoEntity siDoEntity = getSidoEntity();
 
         when(siDoRepository.findAll()).thenReturn(List.of(siDoEntity));
 
-        List<Sido> siDoList = sut.getSiDoList();
+        List<Sido> siDoList = sut.getSidoList();
 
         assertThat(siDoList).isNotNull();
         assertThat(siDoList.size()).isEqualTo(1);
@@ -210,11 +210,19 @@ class AddressServiceTest {
 
     @Test
     void testAddressVerification_OutsidePolygon() {
-        AddressEntity addressEntity = getAddressEntity();
+        AddressEntity addressEntity = mock(AddressEntity.class);
+        EupmyeondongEntity eupmyeondongEntity = mock(EupmyeondongEntity.class);
+        Polygon polygon = mock(Polygon.class);
+        GeometryFactory geometryFactory = new GeometryFactory();
 
         when(addressRepository.findById(anyLong())).thenReturn(Optional.of(addressEntity));
+        when(addressEntity.getEupmyeondong()).thenReturn(eupmyeondongEntity);
+        when(eupmyeondongEntity.getPolygon()).thenReturn(polygon);
 
-        Coordinates coordinates = new Coordinates(38.0, 127.0);
+        Coordinates coordinates = new Coordinates(37.5665, 126.9784);
+        Point point = geometryFactory.createPoint(new Coordinate(coordinates.longitude(), coordinates.latitude()));
+        when(polygon.contains(point)).thenReturn(false);
+
         boolean result = sut.addressVerification(1L, coordinates);
         assertFalse(result);
     }

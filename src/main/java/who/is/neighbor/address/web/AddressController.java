@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import who.is.neighbor.address.application.AddressService;
+import who.is.neighbor.address.domain.Eupmyeondong;
+import who.is.neighbor.address.domain.Sido;
+import who.is.neighbor.address.domain.Sigungu;
 import who.is.neighbor.address.web.request.AddressRegistrationRequest;
 import who.is.neighbor.address.web.request.AddressUpdateRequest;
 import who.is.neighbor.address.web.request.Coordinates;
@@ -13,6 +16,7 @@ import who.is.neighbor.enums.AddressVerified;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,22 +49,22 @@ public class AddressController {
         }
     }
 
-//    @GetMapping("/address/sido")
-//    public ResponseEntity<List<SiDo>> getSiDo(){
-//        List<SiDo> siDoList = addressServi]ce.getSiDoList();
-//        return ResponseEntity.ok(siDoList);
-//    }
-//
-//    @GetMapping("/address/sigungu")
-//    public ResponseEntity<List<SiGunGu>> getSiGunGu(String sido){
-//        List<SiGunGu> siGunGuList = addressService.getSiGunGuList(sido);
-//        return ResponseEntity.ok(siGunGuList);
-//    }
-//
-//    @GetMapping("/address/eupmyeondong")
-//    public ResponseEntity<List<EupMyeonDong>> getEupMyeonDong(String sido, String sigungu){
-//        List<EupMyeonDong> eupMyeonDongList = addressService.getEupMyeonDongList(sido, sigungu);
-//        return ResponseEntity.ok(eupMyeonDongList);
-//    }
+    @GetMapping("/address/sido")
+    public ResponseEntity<List<Sido>> getSiDo(){
+        List<Sido> sidoList = addressService.getSidoList();
+        return ResponseEntity.ok(sidoList);
+    }
+
+    @GetMapping("/address/sigungu")
+    public ResponseEntity<List<Sigungu>> getSiGunGu(String sido){
+        List<Sigungu> siGunGuList = addressService.getSiGunGuList(sido);
+        return ResponseEntity.ok(siGunGuList);
+    }
+
+    @GetMapping("/address/eupmyeondong")
+    public ResponseEntity<List<Eupmyeondong>> getEupMyeonDong(String sido, String sigungu){
+        List<Eupmyeondong> eupMyeonDongList = addressService.getEupMyeonDongList(sido, sigungu);
+        return ResponseEntity.ok(eupMyeonDongList);
+    }
 
 }

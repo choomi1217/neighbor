@@ -13,7 +13,6 @@ import java.util.List;
 public class SigunguEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String sigunguId;
 
     private String sigunguName;

@@ -4,7 +4,6 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
-import org.postgresql.geometric.PGpolygon;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import who.is.neighbor.address.domain.Eupmyeondong;
@@ -47,7 +46,7 @@ public class AddressService {
         return save.toDomain();
     }
 
-    public List<Sido> getSiDoList() {
+    public List<Sido> getSidoList() {
         List<SidoEntity> all = siDoRepository.findAll();
         return all.stream().map(SidoEntity::toDomain).toList();
     }

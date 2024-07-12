@@ -9,13 +9,12 @@ import who.is.neighbor.address.domain.Eupmyeondong;
 @Getter
 @Entity
 public class EupmyeondongEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String eupmyeondongId;
 
     private String eupmyeondongName;
 
-    @Column(columnDefinition = "geometry(POLYGON, 4326)")
     private Polygon polygon;
 
     @ManyToOne(fetch = FetchType.LAZY)
