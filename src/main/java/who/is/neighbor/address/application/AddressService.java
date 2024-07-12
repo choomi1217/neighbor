@@ -46,18 +46,18 @@ public class AddressService {
         return save.toDomain();
     }
 
-    public List<Sido> getSidoList() {
+    public List<Sido> findSidos() {
         List<SidoEntity> all = siDoRepository.findAll();
         return all.stream().map(SidoEntity::toDomain).toList();
     }
 
-    public List<Sigungu> getSiGunGuList(String sidoName) {
+    public List<Sigungu> findSigungus(String sidoName) {
         SidoEntity sido = siDoRepository.findBySidoName(sidoName);
         List<SigunguEntity> all = sigunguRepository.findBySido(sido);
         return all.stream().map(SigunguEntity::toDomain).toList();
     }
 
-    public List<Eupmyeondong> getEupMyeonDongList(String sidoName, String sigunguName) {
+    public List<Eupmyeondong> findEupmyeondongs(String sidoName, String sigunguName) {
         SidoEntity siDo = siDoRepository.findBySidoName(sidoName);
         SigunguEntity sigungu = sigunguRepository.findBySidoAndSigunguName(siDo, sigunguName);
         List<EupmyeondongEntity> all = eupMyeonDongRepository.findBySiDoAndSiGunGu(siDo, sigungu);
