@@ -51,19 +51,19 @@ public class AddressController {
 
     @GetMapping("/address/sido")
     public ResponseEntity<List<Sido>> getSiDo(){
-        List<Sido> sidoList = addressService.getSidoList();
+        List<Sido> sidoList = addressService.findSidos();
         return ResponseEntity.ok(sidoList);
     }
 
     @GetMapping("/address/sigungu")
     public ResponseEntity<List<Sigungu>> getSiGunGu(String sido){
-        List<Sigungu> siGunGuList = addressService.getSiGunGuList(sido);
+        List<Sigungu> siGunGuList = addressService.findSigungus(sido);
         return ResponseEntity.ok(siGunGuList);
     }
 
     @GetMapping("/address/eupmyeondong")
     public ResponseEntity<List<Eupmyeondong>> getEupMyeonDong(String sido, String sigungu){
-        List<Eupmyeondong> eupMyeonDongList = addressService.getEupMyeonDongList(sido, sigungu);
+        List<Eupmyeondong> eupMyeonDongList = addressService.findEupmyeondongs(sido, sigungu);
         return ResponseEntity.ok(eupMyeonDongList);
     }
 

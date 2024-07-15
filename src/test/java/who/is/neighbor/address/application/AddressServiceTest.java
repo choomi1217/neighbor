@@ -61,7 +61,7 @@ class AddressServiceTest {
 
         when(siDoRepository.findAll()).thenReturn(List.of(siDoEntity));
 
-        List<Sido> siDoList = sut.getSidoList();
+        List<Sido> siDoList = sut.findSidos();
 
         assertThat(siDoList).isNotNull();
         assertThat(siDoList.size()).isEqualTo(1);
@@ -76,7 +76,7 @@ class AddressServiceTest {
         given(siDoRepository.findBySidoName(sidoName)).willReturn(sidoEntity);
         given(sigunguRepository.findBySido(sidoEntity)).willReturn(List.of(sigunguEntity));
 
-        List<Sigungu> siGunGuList = sut.getSiGunGuList(sidoName);
+        List<Sigungu> siGunGuList = sut.findSigungus(sidoName);
 
         assertThat(siGunGuList).isNotNull();
         assertThat(siGunGuList.size()).isEqualTo(1);
@@ -85,7 +85,7 @@ class AddressServiceTest {
     }
 
     @Test
-    void getEupMyeonDongList() {
+    void findEupmyeondongs() {
         SidoEntity sidoEntity = getSidoEntity();
         SigunguEntity sigunguEntity = getSigunguEntity(sidoEntity);
         EupmyeondongEntity eupmyeondongEntity = getEupmyeondongEntity(sidoEntity, sigunguEntity);
@@ -94,7 +94,7 @@ class AddressServiceTest {
         given(sigunguRepository.findBySidoAndSigunguName(sidoEntity, sigunguName)).willReturn(sigunguEntity);
         given(eupmyeondongRepository.findBySiDoAndSiGunGu(sidoEntity, sigunguEntity)).willReturn(List.of(eupmyeondongEntity));
 
-        List<Eupmyeondong> eupMyeonDongList = sut.getEupMyeonDongList(sidoName, sigunguName);
+        List<Eupmyeondong> eupMyeonDongList = sut.findEupmyeondongs(sidoName, sigunguName);
 
         assertThat(eupMyeonDongList).isNotNull();
         assertThat(eupMyeonDongList.size()).isEqualTo(1);
