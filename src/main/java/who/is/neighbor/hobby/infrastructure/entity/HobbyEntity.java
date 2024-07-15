@@ -23,14 +23,19 @@ public class HobbyEntity {
     private List<CitizenHobbyEntity> citizens = new ArrayList<>();
     public HobbyEntity(Hobby hobby) {
         this.hobby = hobby.hobby();
-        this.createdAt = hobby.createdAt();
+        this.createdAt = LocalDate.now();
     }
 
     public HobbyEntity() {
 
     }
 
-    public HobbyResponse toDomain() {
-        return null;
+    public HobbyEntity(long id, Hobby hobby) {
+        this.hobbyId = id;
+        this.hobby = hobby.hobby();
+    }
+
+    public Hobby toDomain() {
+        return new Hobby(hobby);
     }
 }

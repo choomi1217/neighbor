@@ -2,11 +2,34 @@ package who.is.neighbor.hobby.application;
 
 import org.springframework.stereotype.Service;
 import who.is.neighbor.hobby.domain.Hobby;
+import who.is.neighbor.hobby.infrastructure.HobbyJpaRepository;
+import who.is.neighbor.hobby.infrastructure.entity.HobbyEntity;
+import who.is.neighbor.hobby.web.request.HobbyRegistrationRequest;
 import who.is.neighbor.hobby.web.response.HobbyResponse;
+
+import java.util.List;
 
 @Service
 public class HobbyService {
-    public HobbyResponse save(Hobby hobby) {
-        return null;
+
+    private final HobbyJpaRepository hobbyRepository;
+
+    public HobbyService(HobbyJpaRepository hobbyRepository) {
+        this.hobbyRepository = hobbyRepository;
+    }
+
+    public List<Hobby> findHobbies() {
+        List<HobbyEntity> hobbyEntities = hobbyRepository.findAll();
+        return hobbyEntities.stream().map(HobbyEntity::toDomain).toList();
+    }
+
+    public HobbyResponse save(HobbyRegistrationRequest request) {
+        Hobby hobby = new Hobby(request.hobby());
+        HobbyEntity hobbyEntity = hobbyRepository.save(new HobbyEntity(hobby));
+        return new HobbyResponse(hobbyEntity.getHobbyId(), hobbyEntity.getHobby());
+    }
+
+    public void delete(long id) {
+
     }
 }
