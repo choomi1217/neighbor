@@ -1,6 +1,7 @@
 package who.is.neighbor.address.web.response;
 
 import who.is.neighbor.address.application.AddressType;
+import who.is.neighbor.address.domain.Address;
 import who.is.neighbor.address.domain.Eupmyeondong;
 import who.is.neighbor.address.domain.Sido;
 import who.is.neighbor.address.domain.Sigungu;
@@ -22,6 +23,17 @@ public record AddressResponse(
                 citizenRegistrationRequest.detailAddress(),
                 citizenRegistrationRequest.addressType(),
                 addressVerificationStatus
+        );
+    }
+
+    public static AddressResponse from(Address address) {
+        return new AddressResponse(
+                address.sidoDomain(),
+                address.sigunguDomain(),
+                address.eupmyeondongDomain(),
+                address.detailAddress(),
+                address.addressType(),
+                address.addressVerificationStatus()
         );
     }
 }

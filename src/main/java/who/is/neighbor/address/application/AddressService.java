@@ -42,8 +42,8 @@ public class AddressService {
         SidoEntity sido = siDoRepository.findBySidoName(request.sidoName());
         SigunguEntity sigungu = sigunguRepository.findBySidoAndSigunguName(sido, request.sigunguName());
         EupmyeondongEntity eupMyeonDong = eupMyeonDongRepository.findBySiDoAndSiGunGuAndEupMyeonDongName(sido, sigungu, request.eupmyeondongName());
-        AddressEntity save = addressRepository.save(new AddressEntity(sido, sigungu, eupMyeonDong, request));
-        return save.toDomain();
+        AddressEntity save = addressRepository.save(new AddressEntity(1L, sido, sigungu, eupMyeonDong, request));
+        return AddressResponse.from(save.toDomain());
     }
 
     public List<Sido> findSidos() {
@@ -68,7 +68,7 @@ public class AddressService {
     public AddressResponse update(Long addressId, AddressUpdateRequest request) {
         AddressEntity addressEntity = addressRepository.findById(addressId).orElseThrow();
         addressEntity.update(request);
-        return addressEntity.toDomain();
+        return AddressResponse.from(addressEntity.toDomain());
     }
 
     public void delete(Long addressId) {
