@@ -29,7 +29,7 @@ public class AccountUserService {
             throw new IllegalArgumentException("Password is not matched");
         }
         if (AccountEmailVerificationStatus.VERIFIED == account.emailVerificationStatus()) {
-            userList = citizenService.findUserByAccountId(account.accountId());
+            userList = citizenService.findCitizenByAccountId(account.accountId());
         }
 
         return new LoginResponse(account.email(), userList, account.emailVerificationStatus());

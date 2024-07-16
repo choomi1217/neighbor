@@ -1,6 +1,7 @@
 package who.is.neighbor.account.infrastructure.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import who.is.neighbor.enums.AccountActiveStatus;
 import who.is.neighbor.enums.AccountEmailVerificationStatus;
 import who.is.neighbor.account.domain.Account;
@@ -10,6 +11,7 @@ import who.is.neighbor.citizen.infrastructure.entity.CitizenEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 public class AccountEntity {
 
@@ -71,5 +73,9 @@ public class AccountEntity {
 
     public void delete() {
         this.activeStatus = AccountActiveStatus.DELETED;
+    }
+
+    public boolean isEmailVerified() {
+        return this.emailVerificationStatus == AccountEmailVerificationStatus.VERIFIED;
     }
 }
