@@ -18,13 +18,16 @@ public class HobbyService {
         this.hobbyRepository = hobbyRepository;
     }
 
-    public List<Hobby> findHobbies() {
+    public List<HobbyResponse> findHobbies() {
         List<HobbyEntity> hobbyEntities = hobbyRepository.findAll();
-        return hobbyEntities.stream().map(HobbyEntity::toDomain).toList();
+        return hobbyEntities.stream()
+                .map(HobbyEntity::toDomain)
+                .map(hobby -> new HobbyResponse(hobby.id(), hobby.hobby()))
+                .toList();
     }
 
     public HobbyResponse save(HobbyRegistrationRequest request) {
-        Hobby hobby = new Hobby(request.hobby());
+        Hobby hobby = Hobby.from(request.hobby());
         HobbyEntity hobbyEntity = hobbyRepository.save(new HobbyEntity(hobby));
         return new HobbyResponse(hobbyEntity.getHobbyId(), hobbyEntity.getHobby());
     }

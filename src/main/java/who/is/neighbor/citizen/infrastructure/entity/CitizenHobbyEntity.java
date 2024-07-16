@@ -2,11 +2,11 @@ package who.is.neighbor.citizen.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import who.is.neighbor.citizen.domain.Citizen;
-import who.is.neighbor.hobby.domain.Hobby;
+import lombok.RequiredArgsConstructor;
 import who.is.neighbor.hobby.infrastructure.entity.HobbyEntity;
 
 @Getter
+@RequiredArgsConstructor
 @Entity
 @IdClass(CitizenHobbyId.class)
 public class CitizenHobbyEntity {
@@ -20,12 +20,9 @@ public class CitizenHobbyEntity {
     @JoinColumn(name = "hobbyId")
     private HobbyEntity hobby;
 
-    public CitizenHobbyEntity(Citizen citizen, Hobby hobby) {
-        this.citizen = new CitizenEntity(citizen);
-        this.hobby = new HobbyEntity(hobby);
-    }
-
-    public CitizenHobbyEntity() {
-
+    public CitizenHobbyEntity(CitizenEntity citizenEntity, HobbyEntity hobbyEntity) {
+        this.citizen = citizenEntity;
+        this.hobby = hobbyEntity;
     }
 }
+

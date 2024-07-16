@@ -6,8 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import who.is.neighbor.citizen.application.CitizenService;
-import who.is.neighbor.citizen.domain.CitizenRepository;
 import who.is.neighbor.hobby.domain.Hobby;
 import who.is.neighbor.hobby.infrastructure.HobbyJpaRepository;
 import who.is.neighbor.hobby.infrastructure.entity.HobbyEntity;
@@ -34,33 +32,34 @@ class HobbyServiceTest {
     @DisplayName("취미 목록을 출력합니다.")
     @Test
     void allHobbies() {
-        Hobby hobby = new Hobby("운동");
+        Hobby hobby = Hobby.from("운동");
         HobbyEntity hobbyEntity = new HobbyEntity(1L, hobby);
         when(hobbyJpaRepository.findAll()).thenReturn(List.of(hobbyEntity));
 
-        List<Hobby> hobbyList = hobbyService.findHobbies();
+        List<HobbyResponse> hobbies = hobbyService.findHobbies();
 
-        assertThat(hobbyList).isNotEmpty();
-        assertThat(hobbyList).hasSize(1);
-        assertThat(hobbyList.get(0).hobby()).isEqualTo("운동");
+        assertThat(hobbies).isNotEmpty();
+        assertThat(hobbies).hasSize(1);
+        assertThat(hobbies.get(0).hobby()).isEqualTo("운동");
     }
 
     @DisplayName("새로운 취미를 등록합니다.")
     @Test
     void addNewHobby() {
-        Hobby hobby = new Hobby("운동");
+        String expect = "운동";
+        Hobby hobby = Hobby.from(expect);
         HobbyEntity hobbyEntity = new HobbyEntity(1L, hobby);
         given(hobbyJpaRepository.save(any(HobbyEntity.class))).willReturn(hobbyEntity);
 
-        HobbyResponse response = hobbyService.save(new HobbyRegistrationRequest("운동"));
+        HobbyResponse response = hobbyService.save(new HobbyRegistrationRequest(expect));
 
-        assertThat(response.hobby()).isEqualTo("운동");
+        assertThat(response.hobby()).isEqualTo(expect);
     }
 
     @DisplayName("등록된 취미를 삭제합니다.")
     @Test
     void deleteHobby() {
-        Hobby hobby = new Hobby("운동");
+        Hobby hobby = Hobby.from("운동");
         HobbyEntity hobbyEntity = new HobbyEntity(1L, hobby);
         given(hobbyJpaRepository.findById(1L)).willReturn(java.util.Optional.of(hobbyEntity));
 

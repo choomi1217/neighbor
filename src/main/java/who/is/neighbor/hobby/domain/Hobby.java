@@ -1,8 +1,9 @@
 package who.is.neighbor.hobby.domain;
 
-import who.is.neighbor.hobby.web.request.HobbyRegistrationRequest;
-
 import java.time.LocalDate;
 
-public record Hobby(String hobby) {
+public record Hobby(long id, String hobby, LocalDate createdAt) {
+    public static Hobby from(String hobby) {
+        return new Hobby(0, hobby, LocalDate.now());
+    }
 }

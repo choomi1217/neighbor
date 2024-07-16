@@ -1,27 +1,16 @@
 package who.is.neighbor.citizen.domain;
 
-import who.is.neighbor.address.web.request.AddressRegistrationRequest;
-import who.is.neighbor.citizen.web.request.CitizenRegistrationRequest;
-import who.is.neighbor.hobby.web.request.HobbyRegistrationRequest;
+import who.is.neighbor.address.domain.Address;
+import who.is.neighbor.hobby.domain.Hobby;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record Citizen(
         String nickname,
         LocalDate createdAt,
         String phoneNumber,
-        AddressRegistrationRequest addressRegistrationRequest,
-        HobbyRegistrationRequest hobbyRegistrationRequest
-){
-    public Citizen(CitizenRegistrationRequest citizenRegistrationRequest,
-                   AddressRegistrationRequest addressRegistrationRequest,
-                   HobbyRegistrationRequest hobbyRegistrationRequest) {
-        this(
-                citizenRegistrationRequest.nickname(),
-                LocalDate.now(),
-                citizenRegistrationRequest.phoneNumber(),
-                addressRegistrationRequest,
-                hobbyRegistrationRequest
-        );
-    }
+        List<Address> address,
+        List<Hobby> hobby
+) {
 }

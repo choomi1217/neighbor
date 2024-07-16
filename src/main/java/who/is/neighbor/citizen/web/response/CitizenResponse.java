@@ -1,20 +1,15 @@
 package who.is.neighbor.citizen.web.response;
 
 import who.is.neighbor.address.web.response.AddressResponse;
-import who.is.neighbor.citizen.domain.Citizen;
 import who.is.neighbor.hobby.web.response.HobbyResponse;
 
-import java.time.LocalDate;
+import java.util.List;
 
 public record CitizenResponse(
+        long id,
         String nickname,
         String phoneNumber,
-        LocalDate createdAt
+        List<HobbyResponse> hobbyResponses,
+        List<AddressResponse> addressResponse
 ) {
-    public CitizenResponse(Citizen domain) {
-        this(domain.nickname(),
-                domain.phoneNumber(),
-                domain.createdAt()
-        );
-    }
 }

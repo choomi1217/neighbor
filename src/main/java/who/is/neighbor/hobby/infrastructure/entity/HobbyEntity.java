@@ -17,10 +17,14 @@ import java.util.List;
 public class HobbyEntity {
     @Id
     private Long hobbyId;
+
     private String hobby;
+
     private LocalDate createdAt;
+
     @OneToMany(mappedBy = "hobby")
     private List<CitizenHobbyEntity> citizens = new ArrayList<>();
+
     public HobbyEntity(Hobby hobby) {
         this.hobby = hobby.hobby();
         this.createdAt = LocalDate.now();
@@ -33,9 +37,10 @@ public class HobbyEntity {
     public HobbyEntity(long id, Hobby hobby) {
         this.hobbyId = id;
         this.hobby = hobby.hobby();
+        this.createdAt = hobby.createdAt();
     }
 
     public Hobby toDomain() {
-        return new Hobby(hobby);
+        return new Hobby(hobbyId, hobby, createdAt);
     }
 }
