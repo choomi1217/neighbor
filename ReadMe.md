@@ -57,7 +57,7 @@ https://github.com/choomi1217/neighbor.git
 
 ---
 
-### 🔧기능
+### 🔧기술 
 
 - java 17
   - geo coding
@@ -69,8 +69,31 @@ https://github.com/choomi1217/neighbor.git
 
 ---
 
+### 🔧기능
+
+### 근처 같은 취미 유저 찾기 기능
+- 사용자의 현재 위치에 따라 근처 사용자를 찾아주는 기능
+1. 사용자가 앱을 사용
+2. 5초 주기로 사용자의 위치를 서버로 전송
+3. 서버는 사용자의 위치를 받아서 주변 사용자를 찾아줌
+4. 사용자는 주변 사용자를 확인할 수 있음
+
+### 선택한 유저와 채팅하기 기능
+- 근처 같은 취미의 유저와 채팅할 수 있는 기능
+1. 사용자가 근처 유저를 찾음
+2. 사용자가 유저를 선택하여 채팅을 요청
+3. 유저는 채팅을 수락하거나 거절
+4. 채팅이 수락되면 채팅이 가능
+5. 채팅이 종료되면 채팅방이 삭제됨
+
+---
+
 ### 🔧설계도
 ![erd](./erd.drawio.png)
 ![neighbor_account_join.png](neighbor_account_join.png)
 ![neihbor_citizen.drawio.png](neihbor_citizen.drawio.png)
 ---
+
+
+
+
