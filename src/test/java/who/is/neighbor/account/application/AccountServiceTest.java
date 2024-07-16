@@ -1,6 +1,7 @@
 package who.is.neighbor.account.application;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -52,6 +53,7 @@ class AccountServiceTest {
         repository = mock(AccountRepository.class);
     }
 
+    @DisplayName("회원가입을 할 수 있습니다.")
     @Test
     void signUp() {
         Account account = new Account(email, password, nickname, phoneNumber);
@@ -65,6 +67,7 @@ class AccountServiceTest {
 
     }
 
+    @DisplayName("회원 정보를 수정할 수 있습니다.")
     @Test
     void update() {
         Account account = new Account(email, password, nickname, phoneNumber);
@@ -77,6 +80,7 @@ class AccountServiceTest {
     }
 
 
+    @DisplayName("이메일로 회원을 찾을 수 있습니다.")
     @Test
     void findByEmail() {
         Account account = new Account(email, password, nickname, phoneNumber);
@@ -89,6 +93,7 @@ class AccountServiceTest {
         assertThat(findAccount.nickname()).isEqualTo(nickname);
     }
 
+    @DisplayName("회원을 삭제할 수 있습니다.")
     @Test
     void delete() {
         Account account = new Account(email, password, nickname, phoneNumber);
@@ -100,6 +105,7 @@ class AccountServiceTest {
         assertThat(repository.findByAccountId(deleteAccount.accountId())).isNotNull();
     }
 
+    @DisplayName("이메일 인증을 할 수 있습니다.")
     @Test
     void sendEmailVerification() {
         Account account = new Account(email, password, nickname, phoneNumber);
@@ -110,6 +116,7 @@ class AccountServiceTest {
         assertThat(emailSendStatus).isEqualTo(EmailSendStatus.SENT);
     }
 
+    @DisplayName("비밀번호 인증을 할 수 있습니다.")
     @Test
     void passwordVerification() {
         Account account = new Account(email, password, nickname, phoneNumber);

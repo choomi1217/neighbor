@@ -1,5 +1,6 @@
 package who.is.neighbor.address.application;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.locationtech.jts.geom.Coordinate;
@@ -56,6 +57,7 @@ class AddressServiceTest {
     private final String eupmyeondongName = "역삼동";
     private final String detailAddress = "강남대로 1234";
 
+    @DisplayName("시도 목록을 출력합니다.")
     @Test
     void getsidolist() {
         SidoEntity siDoEntity = getSidoEntity();
@@ -69,6 +71,7 @@ class AddressServiceTest {
         assertThat(siDoList.get(0).sidoName()).isEqualTo(sidoName);
     }
 
+    @DisplayName("시군구 목록을 출력합니다.")
     @Test
     void getSigunguList() {
         SidoEntity sidoEntity = getSidoEntity();
@@ -85,6 +88,7 @@ class AddressServiceTest {
         assertThat(siGunGuList.get(0).sigunguName()).isEqualTo(sigunguName);
     }
 
+    @DisplayName("읍면동 목록을 출력합니다.")
     @Test
     void findEupmyeondongs() {
         SidoEntity sidoEntity = getSidoEntity();
@@ -104,6 +108,7 @@ class AddressServiceTest {
         assertThat(eupMyeonDongList.get(0).eupmyeondongName()).isEqualTo(eupmyeondongName);
     }
 
+    @DisplayName("주소를 저장합니다.")
     @Test
     void save() {
         Sido sido = new Sido(sidoName);
@@ -133,6 +138,7 @@ class AddressServiceTest {
 
     }
 
+    @DisplayName("주소를 수정합니다.")
     @Test
     void update() {
         Long addressId = 1L;
@@ -177,6 +183,7 @@ class AddressServiceTest {
         assertThat(actual.addressType()).isEqualTo(expect.addressType());
     }
 
+    @DisplayName("주소를 삭제합니다.")
     @Test
     void delete() {
         Long addressId = 1L;
@@ -207,6 +214,7 @@ class AddressServiceTest {
         return new AddressEntity(1L, sidoEntity, sigunguEntity, eupmyeondongEntity, request);
     }
 
+    @DisplayName("특정 구역 안에 주소가 포함 되어 있는지 확인합니다.")
     @Test
     void testAddressVerification_InsidePolygon() {
         AddressEntity addressEntity = mock(AddressEntity.class);
@@ -226,6 +234,7 @@ class AddressServiceTest {
         assertTrue(result);
     }
 
+    @DisplayName("특정 구역 밖에 주소가 포함 되어 있는지 확인합니다.")
     @Test
     void testAddressVerification_OutsidePolygon() {
         AddressEntity addressEntity = mock(AddressEntity.class);

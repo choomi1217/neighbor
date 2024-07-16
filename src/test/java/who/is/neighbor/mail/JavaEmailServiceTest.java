@@ -1,12 +1,15 @@
 package who.is.neighbor.mail;
 
 import jakarta.mail.internet.MimeMessage;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import static org.mockito.Mockito.*;
 
 class JavaEmailServiceTest {
+
+    @DisplayName("이메일을 전송합니다.")
     @Test
     public void sendTest() throws Exception {
         JavaMailSender javaMailSender = mock(JavaMailSender.class);
