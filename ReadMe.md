@@ -48,12 +48,12 @@ https://github.com/choomi1217/neighbor.git
         - 읍면동 범위 (다중선택)
     - 본인 위치 주변 찾기 `GET /address/14142624.894167583,4505768.030621257`
 - 예외
-
----
-
-### 🔧흐름도
-
-
+    - 사용자가 없을 때 `404 Not Found`
+    - 사용자가 이미 존재할 때 `409 Conflict`
+    - 사용자가 인증되지 않았을 때 `401 Unauthorized`
+    - 사용자가 권한이 없을 때 `403 Forbidden`
+    - 사용자가 잘못된 요청을 보냈을 때 `400 Bad Request`
+    - 서버 내부 오류 `500 Internal Server Error`
 
 ---
 
