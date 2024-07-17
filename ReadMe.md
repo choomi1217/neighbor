@@ -69,6 +69,15 @@ https://github.com/choomi1217/neighbor.git
 
 ---
 
+### 🔧인덱스 생성
+
+- 공간 정보에 대한 인덱스를 생성합니다.
+```sql
+CREATE INDEX idx_citizen_location ON CitizenLocationEntity USING gist (ST_MakePoint(longitude, latitude));
+```
+
+---
+
 ### 🔧기능
 
 ### 근처 같은 취미 유저 찾기 기능
