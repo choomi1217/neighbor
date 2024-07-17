@@ -7,7 +7,8 @@ import who.is.neighbor.citizen.infrastructure.entity.CitizenEntity;
 import java.util.List;
 
 public interface CitizenJpaRepository extends JpaRepository<CitizenEntity, Long> {
-    List<CitizenEntity> findByCitizenId(Long citizenId);
 
     CitizenEntity findByAccountEntity(AccountEntity accountEntity);
+
+    CitizenEntity findByCitizenId(Long citizenId);
 }
